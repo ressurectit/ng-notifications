@@ -1,0 +1,10 @@
+/.vscode
+/src
+/typings
+/bundle/ng2-notifications.dev.d.ts
+.jsbeautifyrc
+tsconfig.json
+typings.json
+*.ts
+!*.d.ts
+*.map

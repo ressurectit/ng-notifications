@@ -4,7 +4,7 @@ import {OpaqueToken,
         Optional} from 'angular2/core';
 import {NotificationsOptions} from './notifications.options';
 import {Notification} from './notification';
-import {NotificationsService, NOTIFICATION_SERVICE} from './notifications.service';
+import {NotificationsService, LocalNotificationsService} from './notifications.service';
 import {NotificationMessage} from './notification.message.component';
 
 /**
@@ -19,8 +19,9 @@ export const GLOBAL_NOTIFICATION_OPTIONS = new OpaqueToken("GlobalNotificaitonOp
 {
     selector: "notifications",
     directives: [NotificationMessage],
+    inputs: ['cssClass'],
     template:
-   `<div class="notifications">
+   `<div [class]="cssClass">
         <notification *ngFor="#itm of notifications"
                       [item]="itm"
                       [clickToClose]="options.clickToClose"
@@ -30,16 +31,30 @@ export const GLOBAL_NOTIFICATION_OPTIONS = new OpaqueToken("GlobalNotificaitonOp
 })
 export class Notifications
 {
+    //######################### private fields #########################
+    
+    /**
+     * Array of active timeouts
+     */
+    private _timeouts: {[index: number]: any} = {};
+    
     //######################### public properties #########################
     
     /**
      * Array of displayed notifications
      */
     public notifications: Notification[] = [];
-
+    
+    //######################### public properties - inputs #########################
+    
+    /**
+     * Css class that is assigned to root element of notifications
+     */
+    public cssClass: string = "notifications";
+    
     //######################### constructor #########################
     constructor(@Optional() @Inject(GLOBAL_NOTIFICATION_OPTIONS) public options: NotificationsOptions,
-                @Inject(NOTIFICATION_SERVICE) service: NotificationsService)
+                service: LocalNotificationsService)
     {
         if(!this.options)
         {
@@ -57,6 +72,20 @@ export class Notifications
             
             itm.id = id;
             
+            if(itm.message.length > this.options.maxLength)
+            {
+                itm.message = itm.message.substr(0, this.options.maxLength) + " ...";
+            }
+            
+            if(this.options.timeOut > 0)
+            {
+                this._timeouts[id] = setTimeout(() =>
+                {
+                    delete this._timeouts[id];
+                    this.removeItem(itm);
+                }, this.options.timeOut);
+            }
+            
             this.notifications.push(itm);
         });
     }
@@ -69,15 +98,11 @@ export class Notifications
      */
     public removeItem(item: Notification)
     {
-        if(!this.options.clickToClose)
-        {
-            return;
-        }
-        
         var index = this.notifications.indexOf(item);
         
         if (index > -1) 
         {
+            delete this._timeouts[this.notifications[index].id]; 
             this.notifications.splice(index, 1);
         }
     }

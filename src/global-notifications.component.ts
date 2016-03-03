@@ -2,7 +2,7 @@ import {Component,
         Inject,
         Optional} from 'angular2/core';
 import {NotificationsOptions} from './notifications.options';
-import {NotificationsService, GLOBAL_NOTIFICATION_SERVICE} from './notifications.service';
+import {NotificationsService, GlobalNotificationsService} from './notifications.service';
 import {NotificationMessage} from './notification.message.component';
 import {Notifications, GLOBAL_NOTIFICATION_OPTIONS} from './notifications.component';
 
@@ -20,10 +20,11 @@ import {Notifications, GLOBAL_NOTIFICATION_OPTIONS} from './notifications.compon
             position: fixed;
             right: 15px;
             top: 20px;
+            z-index: 21312;
         }
     `],
     template:
-   `<div class="notifications global">
+   `<div [class]="cssClass">
         <notification *ngFor="#itm of notifications"
                       [item]="itm"
                       [clickToClose]="options.clickToClose"
@@ -35,8 +36,10 @@ export class GlobalNotifications extends Notifications
 {
     //######################### constructor #########################
     constructor(@Optional() @Inject(GLOBAL_NOTIFICATION_OPTIONS) options: NotificationsOptions,
-                @Inject(GLOBAL_NOTIFICATION_SERVICE) service: NotificationsService)
+                service: GlobalNotificationsService)
     {
         super(options, service);
+        
+        this.cssClass = "notifications global";
     }
 }

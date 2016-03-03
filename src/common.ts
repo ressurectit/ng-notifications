@@ -1,4 +1,4 @@
-export {GLOBAL_NOTIFICATION_SERVICE, GLOBAL_NOTIFICATION_SERVICE_PROVIDER, NotificationsService} from './notifications.service';
+export {GlobalNotificationsService, LocalNotificationsService} from './notifications.service';
 export {GLOBAL_NOTIFICATION_OPTIONS, Notifications} from './notifications.component';
 export {GlobalNotifications} from './global-notifications.component';
 export {NotificationMessage} from './notification.message.component';

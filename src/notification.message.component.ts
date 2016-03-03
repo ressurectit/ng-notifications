@@ -28,7 +28,16 @@ import {NotificationType} from './notification.type';
 export class NotificationMessage
 {
     //######################### private fields #########################
+    
+    /**
+     * Item holding notification information
+     */
     private _item: Notification;
+    
+    /**
+     * Indication whether close on click
+     */
+    private _clickToClose: boolean;
     
     //######################### public properties #########################
     
@@ -58,6 +67,7 @@ export class NotificationMessage
     public set clickToClose(indication: boolean)
     {
         this.classObj.clickable = indication;
+        this._clickToClose = indication;
     };
     
     //######################### public properties - output #########################
@@ -74,6 +84,9 @@ export class NotificationMessage
      */
     public close()
     {
-        this.closing.emit(this._item);
+        if(this._clickToClose)
+        {
+            this.closing.emit(this._item);
+        }
     }
 }

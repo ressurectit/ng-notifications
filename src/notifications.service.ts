@@ -7,20 +7,9 @@ import {Notification} from './notification';
 import {NotificationType} from './notification.type';
 
 /**
- * Token used for injecting NotificationsService for global purposes
- */
-export const GLOBAL_NOTIFICATION_SERVICE = new OpaqueToken("GlobalNotificaitonService");
-
-/**
- * Token used for injecting NotificationsService for local purposes
- */
-export const NOTIFICATION_SERVICE = new OpaqueToken("LocalNotificaitonService");
-
-/**
  * Notifications service used for creating notifications
  */
-@Injectable()
-export class NotificationsService
+export abstract class NotificationsService
 {
     //######################### events #########################
     
@@ -80,17 +69,17 @@ export class NotificationsService
 }
 
 /**
- * Provider for global notifications, must be inserted in bootstrap
+ * Global notification service that is used for page global notifications
  */
-export const GLOBAL_NOTIFICATION_SERVICE_PROVIDER = provide(GLOBAL_NOTIFICATION_SERVICE,
-                                                            {
-                                                                useClass: NotificationsService
-                                                            });
-                                                            
+@Injectable()
+export class GlobalNotificationsService extends NotificationsService
+{
+}
+
 /**
- * Provider for local notifications, use for provide
+ * Local notification service that should be used only within page notifications
  */
-export const NOTIFICATION_SERVICE_PROVIDER = provide(NOTIFICATION_SERVICE,
-                                                     {
-                                                         useClass: NotificationsService
-                                                     });
+@Injectable()
+export class LocalNotificationsService extends NotificationsService
+{
+}

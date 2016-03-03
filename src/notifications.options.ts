@@ -7,17 +7,17 @@ export class NotificationsOptions
     /**
      * Timeout in ms, after which will be notification closed, if set to 0, message will stay
      */
-    timeOut: number;
+    public timeOut: number;
     
     /**
      * Indication that notification should be closed when clicked on it
      */
-    clickToClose: boolean;
+    public clickToClose: boolean;
     
     /**
      * Maximal allowed length of notification message
      */
-    maxLength: number;
+    public maxLength: number;
     
     /**
      * Creates instance of NotificationsOptions

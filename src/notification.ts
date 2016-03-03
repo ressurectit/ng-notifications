@@ -8,17 +8,17 @@ export class Notification
     /**
      * Type of notification message
      */
-    type: NotificationType;
+    public type: NotificationType;
     
     /**
      * Message displayed by notification
      */
-    message: string;
+    public message: string;
     
     /**
      * Unique id identifying notification
      */
-    id: number;
+    public id: number;
     
     /**
      * Creates instance of Notification

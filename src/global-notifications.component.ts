@@ -6,6 +6,9 @@ import {NotificationsService, GLOBAL_NOTIFICATION_SERVICE} from './notifications
 import {NotificationMessage} from './notification.message.component';
 import {Notifications, GLOBAL_NOTIFICATION_OPTIONS} from './notifications.component';
 
+/**
+ * Notifications component for global messages
+ */
 @Component(
 {
     selector: "global-notifications",

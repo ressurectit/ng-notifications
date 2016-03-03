@@ -12,6 +12,11 @@ import {NotificationType} from './notification.type';
 export const GLOBAL_NOTIFICATION_SERVICE = new OpaqueToken("GlobalNotificaitonService");
 
 /**
+ * Token used for injecting NotificationsService for local purposes
+ */
+export const NOTIFICATION_SERVICE = new OpaqueToken("LocalNotificaitonService");
+
+/**
  * Notifications service used for creating notifications
  */
 @Injectable()
@@ -22,7 +27,7 @@ export class NotificationsService
     /**
      * Occurs when somebody tries to use NotificationsService for notifying user 
      */
-    notifying: EventEmitter<Notification> = new EventEmitter();
+    public notifying: EventEmitter<Notification> = new EventEmitter();
     
     //######################### public methods #########################
     
@@ -30,7 +35,7 @@ export class NotificationsService
      * Displays success notification
      * @param  {string} message Message to be displayed
      */
-    success(message: string)
+    public success(message: string)
     {
         this._onNotify(new Notification(message, NotificationType.success));
     }
@@ -39,7 +44,7 @@ export class NotificationsService
      * Displays error notification
      * @param  {string} message Message to be displayed
      */
-    error(message: string)
+    public error(message: string)
     {
         this._onNotify(new Notification(message, NotificationType.danger));
     }
@@ -48,7 +53,7 @@ export class NotificationsService
      * Displays info notification
      * @param  {string} message Message to be displayed
      */
-    info(message: string)
+    public info(message: string)
     {
         this._onNotify(new Notification(message, NotificationType.info));
     }
@@ -57,7 +62,7 @@ export class NotificationsService
      * Displays warning notification
      * @param  {string} message Message to be displayed
      */
-    warning(message: string)
+    public warning(message: string)
     {
         this._onNotify(new Notification(message, NotificationType.warning));
     }
@@ -81,3 +86,11 @@ export const GLOBAL_NOTIFICATION_SERVICE_PROVIDER = provide(GLOBAL_NOTIFICATION_
                                                             {
                                                                 useClass: NotificationsService
                                                             });
+                                                            
+/**
+ * Provider for local notifications, use for provide
+ */
+export const NOTIFICATION_SERVICE_PROVIDER = provide(NOTIFICATION_SERVICE,
+                                                     {
+                                                         useClass: NotificationsService
+                                                     });

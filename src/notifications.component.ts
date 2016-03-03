@@ -4,7 +4,7 @@ import {OpaqueToken,
         Optional} from 'angular2/core';
 import {NotificationsOptions} from './notifications.options';
 import {Notification} from './notification';
-import {NotificationsService} from './notifications.service';
+import {NotificationsService, NOTIFICATION_SERVICE} from './notifications.service';
 import {NotificationMessage} from './notification.message.component';
 
 /**
@@ -12,6 +12,9 @@ import {NotificationMessage} from './notification.message.component';
  */
 export const GLOBAL_NOTIFICATION_OPTIONS = new OpaqueToken("GlobalNotificaitonOptions");
 
+/**
+ * Notifications component for local messages
+ */
 @Component(
 {
     selector: "notifications",
@@ -36,7 +39,7 @@ export class Notifications
 
     //######################### constructor #########################
     constructor(@Optional() @Inject(GLOBAL_NOTIFICATION_OPTIONS) public options: NotificationsOptions,
-                @Inject(NotificationsService) service: NotificationsService)
+                @Inject(NOTIFICATION_SERVICE) service: NotificationsService)
     {
         if(!this.options)
         {
@@ -49,7 +52,6 @@ export class Notifications
             
             if(this.notifications.length > 0)
             {
-                console.log(this.notifications.length);
                 id = this.notifications[this.notifications.length - 1].id + 1; 
             }
             
@@ -67,8 +69,6 @@ export class Notifications
      */
     public removeItem(item: Notification)
     {
-        console.log(item);
-        
         if(!this.options.clickToClose)
         {
             return;

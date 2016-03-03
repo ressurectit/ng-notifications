@@ -30,12 +30,14 @@ export class NotificationMessage
     //######################### private fields #########################
     private _item: Notification;
     
-    //######################### public properties - inputs #########################
+    //######################### public properties #########################
     
     /**
      * Object representing css class definition
      */
     public classObj = { clickable: false };
+    
+    //######################### public properties - inputs #########################
     
     /**
      * Notification item that should be displayed

@@ -21,6 +21,11 @@ export class Notification
     public id: number;
     
     /**
+     * Indication whether notification should be visible
+     */
+    public visible: boolean = false;
+    
+    /**
      * Creates instance of Notification
      * @param  {string} message Message displayed by notification
      * @param  {NotificationType} type Type of notification message

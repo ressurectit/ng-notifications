@@ -1,6 +1,6 @@
 {
     "name": "ng2-notifications",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Angular 2 module for displaying notifications",
     "scripts":
     {
@@ -44,5 +44,9 @@
         "typings":"^0.6.8",
         "npm-publish-package": "1.2.0",
         "npm-angular2-bundle": "1.0.0"
+    },
+    "optionalDependencies": 
+    {
+        "gsap": "~1.18.2"
     }
 }

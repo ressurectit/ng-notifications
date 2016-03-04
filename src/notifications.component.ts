@@ -24,73 +24,108 @@ export const GLOBAL_NOTIFICATION_OPTIONS = new OpaqueToken("GlobalNotificaitonOp
    `<div [class]="cssClass">
         <notification *ngFor="#itm of notifications"
                       [item]="itm"
+                      [visible]="itm.visible"
                       [clickToClose]="options.clickToClose"
-                      (closing)="removeItem($event)">
+                      [animated]="options.animations"
+                      (closing)="closeItem($event)"
+                      (closed)="removeItem($event)">
         </notification>
     </div>`
 })
 export class Notifications
 {
     //######################### private fields #########################
-    
+
     /**
      * Array of active timeouts
      */
     private _timeouts: {[index: number]: any} = {};
-    
-    //######################### public properties #########################
-    
+
     /**
-     * Array of displayed notifications
+     * Array of displayed notifications - working set
      */
-    public notifications: Notification[] = [];
-    
+    private _activeNotifications: Notification[] = [];
+
+    //######################### public properties #########################
+
+    /**
+     * Array of displayed notifications - displayed set
+     */
+    private notifications: Notification[] = [];
+
     //######################### public properties - inputs #########################
-    
+
     /**
      * Css class that is assigned to root element of notifications
      */
     public cssClass: string = "notifications";
-    
+
     //######################### constructor #########################
     constructor(@Optional() @Inject(GLOBAL_NOTIFICATION_OPTIONS) public options: NotificationsOptions,
                 service: LocalNotificationsService)
     {
         if(!this.options)
         {
-            this.options = new NotificationsOptions(10000, true, 500);
+            this.options = new NotificationsOptions(10000, true, 500, true);
         }
-        
+
         service.notifying.subscribe((itm: Notification) =>
         {
             var id = 0;
-            
-            if(this.notifications.length > 0)
+
+            if(this._activeNotifications.length > 0)
             {
-                id = this.notifications[this.notifications.length - 1].id + 1; 
+                id = this._activeNotifications[this._activeNotifications.length - 1].id + 1;
             }
-            
+
             itm.id = id;
-            
+
             if(itm.message.length > this.options.maxLength)
             {
                 itm.message = itm.message.substr(0, this.options.maxLength) + " ...";
             }
-            
+
             if(this.options.timeOut > 0)
             {
                 this._timeouts[id] = setTimeout(() =>
                 {
                     delete this._timeouts[id];
-                    this.removeItem(itm);
+                    this.closeItem(itm);
                 }, this.options.timeOut);
             }
-            
-            this.notifications.push(itm);
+
+            this.addItem(itm);
         });
     }
-    
+
     //######################### public methods #########################
+
+    /**
+     * Adds notification item to list
+     * @param  {Notification} item Item to be added
+     */
+    public addItem(item: Notification)
+    {
+        this._activeNotifications.push(item);
+        this.notifications.push(item);
+        item.visible = true;
+    }
+
+    /**
+     * Closes notification item
+     * @param  {number} item Item to be closed
+     */
+    public closeItem(item: Notification)
+    {
+        var index = this._activeNotifications.indexOf(item);
+
+        if (index > -1)
+        {
+            delete this._timeouts[item.id];
+            this._activeNotifications.splice(index, 1);
+            item.visible = false;
+        }
+    }
     
     /**
      * Removes notification item from list
@@ -99,10 +134,9 @@ export class Notifications
     public removeItem(item: Notification)
     {
         var index = this.notifications.indexOf(item);
-        
-        if (index > -1) 
+
+        if (index > -1)
         {
-            delete this._timeouts[this.notifications[index].id]; 
             this.notifications.splice(index, 1);
         }
     }

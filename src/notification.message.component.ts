@@ -1,7 +1,9 @@
 import {Component,
+        ElementRef,
         EventEmitter} from 'angular2/core';
 import {Notification} from './notification';
 import {NotificationType} from './notification.type';
+import TimelineMax from 'timelinemax';
 
 /**
  * Notification message component that represents simple message 
@@ -9,13 +11,24 @@ import {NotificationType} from './notification.type';
 @Component(
 {
     selector: "notification",
-    inputs: ['item', 'clickToClose'],
-    outputs: ['closing'],
+    inputs: ['item', 'clickToClose', 'animated', 'visible'],
+    outputs: ['closing', 'closed'],
     styles: 
     [`
         .clickable
         {
             cursor: pointer;
+        }
+        .invisible
+        {
+            opacity: 0;
+        }
+        .collapsed
+        {
+            border: 0 none;
+            font-size: 0;
+            margin: 0;
+            padding: 0;
         }
     `],
     template: 
@@ -44,9 +57,54 @@ export class NotificationMessage
     /**
      * Object representing css class definition
      */
-    public classObj = { clickable: false };
+    public classObj = { clickable: false, collapsed: true, invisible: true };
     
     //######################### public properties - inputs #########################
+    
+    /**
+     * Indication whether notification is visible 
+     */
+    public set visible(visible: boolean)
+    {
+        if(this.animated)
+        {
+            var div = this._element.nativeElement.children[0];
+            
+            //Animated show
+            if(visible)
+            {
+                var timeline = new TimelineMax();
+
+                timeline.to(div, 0.3, {className: "-=collapsed"})
+                    .to(div, 0.4, {className: "-=invisible"});
+            }
+            //animated hide
+            else
+            {
+                var timeline = new TimelineMax({onComplete: () => this._removeSelf()});
+
+                timeline.to(div, 0.4, {opacity: 0})
+                    .to(div, 0.3, {padding: 0, margin: 0, fontSize: 0, borderWidth: 0});
+            }
+            
+            return;
+        }
+        else
+        {
+            this.classObj.collapsed = !visible;
+            this.classObj.invisible = !visible;
+        }
+        
+        if(!visible)
+        {
+            this._removeSelf();
+        }
+    }
+    
+    /**
+     * Indication whether displayed notification should be animated
+     */
+    public animated: boolean;
     
     /**
      * Notification item that should be displayed
@@ -73,9 +131,19 @@ export class NotificationMessage
     //######################### public properties - output #########################
     
     /**
-     * Occurs when user is explicitly trying to close
+     * Occurs when notification is closing
      */
     public closing: EventEmitter<Notification> = new EventEmitter();
+    
+    /**
+     * Occurs when notification has been closed
+     */
+    public closed: EventEmitter<Notification> = new EventEmitter();
+    
+    //######################### constructor #########################
+    constructor(private _element: ElementRef)
+    {
+    }
     
     //######################### public methods #########################
     
@@ -88,5 +156,15 @@ export class NotificationMessage
         {
             this.closing.emit(this._item);
         }
+    }
+    
+    //######################### private methods #########################
+    
+    /**
+     * Used for invocation of 'closed' event and removing itself from notifications
+     */
+    private _removeSelf()
+    {
+        this.closed.emit(this._item);
     }
 }

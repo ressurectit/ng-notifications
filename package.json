@@ -15,7 +15,7 @@
         "prepublish": "npm run bundle:package",
         "postpublish": "npm run clean",
         "bundle": "tsc --outFile bundle/ng2-notifications.dev.js",
-        "bundle:update": "nab bundle/ng2-notifications.dev.js",
+        "bundle:update": "nab bundle/ng2-notifications.dev.js && uglifyjs -o bundle/ng2-notifications.min.js -- bundle/ng2-notifications.dev.js",
         "bundle:package": "npm run clean && npm run build && npm run bundle && npm run bundle:update",
         "deploy-stable": "npp -b",
         "deploy-next": "npp -p -b -s \"beta\" -t \"next\""
@@ -42,6 +42,7 @@
         "rimraf": "~2.5.1",
         "typescript": "~1.8.2",
         "typings":"^0.6.8",
+        "uglify-js": "~2.6.2",
         "npm-publish-package": "1.2.0",
         "npm-angular2-bundle": "1.0.0"
     },

@@ -6,3 +6,4 @@
 *.map
 *.log
 *.css
+!tsTypings/*.d.ts

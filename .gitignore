@@ -1,9 +1,10 @@
 /node_modules
 /bundle
+/tsTypings
 /typings
 *.d.ts
 *.js
 *.map
 *.log
 *.css
-!tsTypings/*.d.ts
+!gulpfile.js

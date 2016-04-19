@@ -1,7 +1,9 @@
 /.vscode
 /src
 /typings
+/tsTypings
 .jsbeautifyrc
+gulpfile.js
 tsconfig.json
 typings.json
 *.ts

@@ -22,7 +22,7 @@ export const GLOBAL_NOTIFICATION_OPTIONS = new OpaqueToken("GlobalNotificaitonOp
     inputs: ['cssClass'],
     template:
    `<div [class]="cssClass">
-        <notification *ngFor="#itm of notifications"
+        <notification *ngFor="let itm of notifications"
                       [item]="itm"
                       [visible]="itm.visible"
                       [clickToClose]="options.clickToClose"

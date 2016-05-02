@@ -25,7 +25,7 @@ import {Notifications, GLOBAL_NOTIFICATION_OPTIONS} from './notifications.compon
     `],
     template:
    `<div [class]="cssClass">
-        <notification *ngFor="#itm of notifications"
+        <notification *ngFor="let itm of notifications"
                       [item]="itm"
                       [visible]="itm.visible"
                       [clickToClose]="options.clickToClose"

@@ -1,7 +1,7 @@
 import {OpaqueToken,
         Component,
         Inject,
-        Optional} from 'angular2/core';
+        Optional} from '@angular/core';
 import {NotificationsOptions} from './notifications.options';
 import {Notification} from './notification';
 import {NotificationsService, LocalNotificationsService} from './notifications.service';

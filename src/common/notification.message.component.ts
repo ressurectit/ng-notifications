@@ -1,6 +1,6 @@
 import {Component,
         ElementRef,
-        EventEmitter} from 'angular2/core';
+        EventEmitter} from '@angular/core';
 import {Notification} from './notification';
 import {NotificationType} from './notification.type';
 import TimelineMax from 'timelinemax';

@@ -1,6 +1,6 @@
 import {Component,
         Inject,
-        Optional} from 'angular2/core';
+        Optional} from '@angular/core';
 import {NotificationsOptions} from './notifications.options';
 import {NotificationsService, GlobalNotificationsService} from './notifications.service';
 import {NotificationMessage} from './notification.message.component';

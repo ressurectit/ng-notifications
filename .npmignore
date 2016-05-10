@@ -10,4 +10,4 @@ typings.json
 *.map
 *.log
 !*.d.ts
-/bundle/ng2-notifications.dev.d.ts
+index.dev.d.ts

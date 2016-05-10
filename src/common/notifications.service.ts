@@ -2,7 +2,7 @@ import {Injectable,
         OpaqueToken,
         EventEmitter,
         Provider,
-        provide} from 'angular2/core';
+        provide} from '@angular/core';
 import {Notification} from './notification';
 import {NotificationType} from './notification.type';
 

@@ -1,11 +1,13 @@
 import {OpaqueToken,
         Component,
         Inject,
+        OnDestroy,
         Optional} from '@angular/core';
 import {NotificationsOptions} from './notifications.options';
 import {Notification} from './notification';
 import {NotificationsService, LocalNotificationsService} from './notifications.service';
 import {NotificationMessage} from './notification.message.component';
+import {Subscription} from 'rxjs/Subscription';
 
 /**
  * Token used for injecting global NotificationsOptions, default values for all notifications if not overriden
@@ -32,7 +34,7 @@ export const GLOBAL_NOTIFICATION_OPTIONS = new OpaqueToken("GlobalNotificaitonOp
         </notification>
     </div>`
 })
-export class Notifications
+export class Notifications implements OnDestroy
 {
     //######################### private fields #########################
 
@@ -45,6 +47,11 @@ export class Notifications
      * Array of displayed notifications - working set
      */
     private _activeNotifications: Notification[] = [];
+
+    /**
+     * Subscription for clearing event
+     */
+    private _clearingSubscription: Subscription = null;
 
     //######################### public properties #########################
 
@@ -68,6 +75,15 @@ export class Notifications
         {
             this.options = new NotificationsOptions(10000, true, 500, true);
         }
+
+        //removing all displayed items
+        this._clearingSubscription = service.clearingMessages.subscribe(() =>
+        {
+            this._activeNotifications.forEach(notification =>
+            {
+                this.closeItem(notification);
+            });
+        });
 
         service.notifying.subscribe((itm: Notification) =>
         {
@@ -138,6 +154,20 @@ export class Notifications
         if (index > -1)
         {
             this.notifications.splice(index, 1);
+        }
+    }
+
+    //######################### public methods - implementation of OnDestroy #########################
+    
+    /**
+     * Called when component is destroyed
+     */
+    public ngOnDestroy()
+    {
+        if(this._clearingSubscription)
+        {
+            this._clearingSubscription.unsubscribe();
+            this._clearingSubscription = null;
         }
     }
 }

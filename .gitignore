@@ -2,6 +2,7 @@
 /tsTypings
 /typings
 /common
+/modules
 *.d.ts
 *.js
 *.map

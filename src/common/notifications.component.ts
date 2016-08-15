@@ -1,6 +1,5 @@
 import {OpaqueToken,
         Component,
-        Inject,
         OnDestroy,
         Optional} from '@angular/core';
 import {NotificationsOptions} from './notifications.options';
@@ -8,11 +7,6 @@ import {Notification} from './notification';
 import {NotificationsService, LocalNotificationsService} from './notifications.service';
 import {NotificationMessage} from './notification.message.component';
 import {Subscription} from 'rxjs/Subscription';
-
-/**
- * Token used for injecting global NotificationsOptions, default values for all notifications if not overriden
- */
-export const GLOBAL_NOTIFICATION_OPTIONS = new OpaqueToken("GlobalNotificaitonOptions");
 
 /**
  * Notifications component for local messages
@@ -68,13 +62,16 @@ export class Notifications implements OnDestroy
     public cssClass: string = "notifications";
 
     //######################### constructor #########################
-    constructor(@Optional() @Inject(GLOBAL_NOTIFICATION_OPTIONS) public options: NotificationsOptions,
+    constructor(@Optional() public options: NotificationsOptions,
                 service: LocalNotificationsService)
     {
-        if(!this.options)
+        if(options && !(options instanceof NotificationsOptions))
         {
-            this.options = new NotificationsOptions(10000, true, 500, true);
+            this.options = null;
+            console.warn("Provided configuration for 'Notifications' is not of type 'NotificationsOptions' and will be ignored!");
         }
+
+        this.options = options || new NotificationsOptions(10000, true, 500, true);
 
         //removing all displayed items
         this._clearingSubscription = service.clearingMessages.subscribe(() =>

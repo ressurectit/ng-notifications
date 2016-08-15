@@ -1,10 +1,9 @@
 import {Component,
-        Inject,
         Optional} from '@angular/core';
 import {NotificationsOptions} from './notifications.options';
 import {NotificationsService, GlobalNotificationsService} from './notifications.service';
 import {NotificationMessage} from './notification.message.component';
-import {Notifications, GLOBAL_NOTIFICATION_OPTIONS} from './notifications.component';
+import {Notifications} from './notifications.component';
 
 /**
  * Notifications component for global messages
@@ -38,7 +37,7 @@ import {Notifications, GLOBAL_NOTIFICATION_OPTIONS} from './notifications.compon
 export class GlobalNotifications extends Notifications
 {
     //######################### constructor #########################
-    constructor(@Optional() @Inject(GLOBAL_NOTIFICATION_OPTIONS) options: NotificationsOptions,
+    constructor(@Optional() options: NotificationsOptions,
                 service: GlobalNotificationsService)
     {
         super(options, service);

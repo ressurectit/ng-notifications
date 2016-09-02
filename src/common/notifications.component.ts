@@ -1,11 +1,10 @@
-import {OpaqueToken,
-        Component,
+import {Component,
         OnDestroy,
+        Input,
         Optional} from '@angular/core';
 import {NotificationsOptions} from './notifications.options';
 import {Notification} from './notification';
-import {NotificationsService, LocalNotificationsService} from './notifications.service';
-import {NotificationMessage} from './notification.message.component';
+import {LocalNotificationsService} from './notifications.service';
 import {Subscription} from 'rxjs/Subscription';
 
 /**
@@ -14,8 +13,6 @@ import {Subscription} from 'rxjs/Subscription';
 @Component(
 {
     selector: "notifications",
-    directives: [NotificationMessage],
-    inputs: ['cssClass'],
     template:
    `<div [class]="cssClass">
         <notification *ngFor="let itm of notifications"
@@ -59,6 +56,7 @@ export class Notifications implements OnDestroy
     /**
      * Css class that is assigned to root element of notifications
      */
+    @Input()
     public cssClass: string = "notifications";
 
     //######################### constructor #########################

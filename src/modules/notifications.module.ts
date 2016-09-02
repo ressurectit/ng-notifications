@@ -24,7 +24,7 @@ export class NotificationsModule
     public static forRoot(): ModuleWithProviders 
     {
         return {
-            ngModule: NgModule,
+            ngModule: NotificationsModule,
             providers: [GlobalNotificationsService]
         };
     }

@@ -1,5 +1,7 @@
 import {Component,
         ElementRef,
+        Input,
+        Output,
         EventEmitter} from '@angular/core';
 import {Notification} from './notification';
 import {NotificationType} from './notification.type';
@@ -11,8 +13,6 @@ import TimelineMax from 'timelinemax';
 @Component(
 {
     selector: "notification",
-    inputs: ['item', 'clickToClose', 'animated', 'visible'],
-    outputs: ['closing', 'closed'],
     styles: 
     [`
         .clickable
@@ -64,6 +64,7 @@ export class NotificationMessage
     /**
      * Indication whether notification is visible 
      */
+    @Input()
     public set visible(visible: boolean)
     {
         if(this.animated)
@@ -104,11 +105,13 @@ export class NotificationMessage
     /**
      * Indication whether displayed notification should be animated
      */
+    @Input()
     public animated: boolean;
     
     /**
      * Notification item that should be displayed
      */
+    @Input()
     public set item(item: Notification)
     {
         this.classObj[`alert-${NotificationType[item.type]}`] = true;
@@ -122,6 +125,7 @@ export class NotificationMessage
     /**
      * Indication that message is clickable
      */
+    @Input()
     public set clickToClose(indication: boolean)
     {
         this.classObj.clickable = indication;
@@ -133,11 +137,13 @@ export class NotificationMessage
     /**
      * Occurs when notification is closing
      */
+    @Output()
     public closing: EventEmitter<Notification> = new EventEmitter();
     
     /**
      * Occurs when notification has been closed
      */
+    @Output()
     public closed: EventEmitter<Notification> = new EventEmitter();
     
     //######################### constructor #########################

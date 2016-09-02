@@ -1,8 +1,7 @@
 import {Component,
         Optional} from '@angular/core';
 import {NotificationsOptions} from './notifications.options';
-import {NotificationsService, GlobalNotificationsService} from './notifications.service';
-import {NotificationMessage} from './notification.message.component';
+import {GlobalNotificationsService} from './notifications.service';
 import {Notifications} from './notifications.component';
 
 /**
@@ -11,7 +10,6 @@ import {Notifications} from './notifications.component';
 @Component(
 {
     selector: "global-notifications",
-    directives: [NotificationMessage],
     styles: 
     [`
         .notifications.global

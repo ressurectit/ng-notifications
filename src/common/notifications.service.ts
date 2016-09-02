@@ -1,8 +1,5 @@
 import {Injectable,
-        OpaqueToken,
-        EventEmitter,
-        Provider,
-        provide} from '@angular/core';
+        EventEmitter} from '@angular/core';
 import {Notification} from './notification';
 import {NotificationType} from './notification.type';
 import {Observable} from 'rxjs/Observable';

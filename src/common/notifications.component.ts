@@ -15,6 +15,14 @@ import {Subscription} from 'rxjs/Subscription';
 @Component(
 {
     selector: "notifications",
+    styles: 
+    [`
+        .notifications>notification
+        {
+            display: block;
+            overflow: hidden;
+        }
+    `],
     template:
    `<div [class]="cssClass">
         <notification *ngFor="let itm of _notifications"

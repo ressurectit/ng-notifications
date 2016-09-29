@@ -21,6 +21,12 @@ import {Notifications} from './notifications.component';
             top: 20px;
             z-index: 21312;
         }
+
+        .notifications.global>notification
+        {
+            display: block;
+            overflow: hidden;
+        }
     `],
     template:
    `<div [class]="cssClass">

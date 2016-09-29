@@ -1,13 +1,6 @@
 /.vscode
 /src
-/typings
-/tsTypings
 .jsbeautifyrc
-gulpfile.js
 tsconfig.json
-typings.json
-*.ts
-*.map
+webpack.config.js
 *.log
-!*.d.ts
-index.dev.d.ts

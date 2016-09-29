@@ -1,5 +1,7 @@
 import {Component,
         Optional} from '@angular/core';
+import {SlideInOutAnimation} from '@ng2/animations';
+
 import {NotificationsOptions} from './notifications.options';
 import {GlobalNotificationsService} from './notifications.service';
 import {Notifications} from './notifications.component';
@@ -23,14 +25,13 @@ import {Notifications} from './notifications.component';
     template:
    `<div [class]="cssClass">
         <notification *ngFor="let itm of notifications"
+                      [@slideInOut]
                       [item]="itm"
-                      [visible]="itm.visible"
                       [clickToClose]="options.clickToClose"
-                      [animated]="options.animations"
-                      (closing)="closeItem($event)"
                       (closed)="removeItem($event)">
         </notification>
-    </div>`
+    </div>`,
+    animations: [SlideInOutAnimation]
 })
 export class GlobalNotifications extends Notifications
 {

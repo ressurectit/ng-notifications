@@ -2,6 +2,8 @@ import {Component,
         OnDestroy,
         Input,
         Optional} from '@angular/core';
+import {SlideInOutAnimation} from '@ng2/animations';
+
 import {NotificationsOptions} from './notifications.options';
 import {Notification} from './notification';
 import {LocalNotificationsService} from './notifications.service';
@@ -15,15 +17,14 @@ import {Subscription} from 'rxjs/Subscription';
     selector: "notifications",
     template:
    `<div [class]="cssClass">
-        <notification *ngFor="let itm of notifications"
+        <notification *ngFor="let itm of _notifications"
+                      [@slideInOut]
                       [item]="itm"
-                      [visible]="itm.visible"
                       [clickToClose]="options.clickToClose"
-                      [animated]="options.animations"
-                      (closing)="closeItem($event)"
                       (closed)="removeItem($event)">
         </notification>
-    </div>`
+    </div>`,
+    animations: [SlideInOutAnimation]
 })
 export class Notifications implements OnDestroy
 {
@@ -35,21 +36,19 @@ export class Notifications implements OnDestroy
     private _timeouts: {[index: number]: any} = {};
 
     /**
-     * Array of displayed notifications - working set
-     */
-    private _activeNotifications: Notification[] = [];
-
-    /**
      * Subscription for clearing event
      */
     private _clearingSubscription: Subscription = null;
 
-    //######################### public properties #########################
+    /**
+     * Subscription for notifying event
+     */
+    private _notifyingSubscription: Subscription = null;
 
     /**
      * Array of displayed notifications - displayed set
      */
-    private notifications: Notification[] = [];
+    private _notifications: Notification[] = [];
 
     //######################### public properties - inputs #########################
 
@@ -69,24 +68,24 @@ export class Notifications implements OnDestroy
             console.warn("Provided configuration for 'Notifications' is not of type 'NotificationsOptions' and will be ignored!");
         }
 
-        this.options = options || new NotificationsOptions(10000, true, 500, true);
+        this.options = options || new NotificationsOptions(10000, true, 500);
 
         //removing all displayed items
         this._clearingSubscription = service.clearingMessages.subscribe(() =>
         {
-            this._activeNotifications.forEach(notification =>
+            this._notifications.forEach(notification =>
             {
-                this.closeItem(notification);
+                this.removeItem(notification);
             });
         });
 
-        service.notifying.subscribe((itm: Notification) =>
+        this._notifyingSubscription = service.notifying.subscribe((itm: Notification) =>
         {
             var id = 0;
 
-            if(this._activeNotifications.length > 0)
+            if(this._notifications.length > 0)
             {
-                id = this._activeNotifications[this._activeNotifications.length - 1].id + 1;
+                id = this._notifications[this._notifications.length - 1].id + 1;
             }
 
             itm.id = id;
@@ -100,8 +99,7 @@ export class Notifications implements OnDestroy
             {
                 this._timeouts[id] = setTimeout(() =>
                 {
-                    delete this._timeouts[id];
-                    this.closeItem(itm);
+                    this.removeItem(itm);
                 }, this.options.timeOut);
             }
 
@@ -117,38 +115,22 @@ export class Notifications implements OnDestroy
      */
     public addItem(item: Notification)
     {
-        this._activeNotifications.push(item);
-        this.notifications.push(item);
-        item.visible = true;
+        this._notifications.push(item);
     }
 
-    /**
-     * Closes notification item
-     * @param  {number} item Item to be closed
-     */
-    public closeItem(item: Notification)
-    {
-        var index = this._activeNotifications.indexOf(item);
-
-        if (index > -1)
-        {
-            delete this._timeouts[item.id];
-            this._activeNotifications.splice(index, 1);
-            item.visible = false;
-        }
-    }
-    
     /**
      * Removes notification item from list
      * @param  {number} item Item to be removed
      */
     public removeItem(item: Notification)
     {
-        var index = this.notifications.indexOf(item);
+        var index = this._notifications.indexOf(item);
 
         if (index > -1)
         {
-            this.notifications.splice(index, 1);
+            clearTimeout(this._timeouts[item.id]);
+            delete this._timeouts[item.id];
+            this._notifications.splice(index, 1);
         }
     }
 
@@ -163,6 +145,12 @@ export class Notifications implements OnDestroy
         {
             this._clearingSubscription.unsubscribe();
             this._clearingSubscription = null;
+        }
+
+        if(this._notifyingSubscription)
+        {
+            this._notifyingSubscription.unsubscribe();
+            this._notifyingSubscription = null;
         }
     }
 }

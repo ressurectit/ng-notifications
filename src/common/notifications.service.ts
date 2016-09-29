@@ -1,5 +1,5 @@
-import {Injectable,
-        EventEmitter} from '@angular/core';
+import {Injectable} from '@angular/core';
+
 import {Notification} from './notification';
 import {NotificationType} from './notification.type';
 import {Observable} from 'rxjs/Observable';
@@ -13,18 +13,16 @@ export abstract class NotificationsService
     //######################### private fields #########################
 
     /**
-     * Subjet usef for emitting clear messages event 
+     * Subjet used for emitting clear messages event 
      */
     private _clearSubject: Subject<any> = new Subject<any>();
 
-    //######################### events #########################
-    
     /**
-     * Occurs when somebody tries to use NotificationsService for notifying user 
+     * Subject used for emittin notifying event 
      */
-    public notifying: EventEmitter<Notification> = new EventEmitter();
+    private _notifying: Subject<Notification> = new Subject<Notification>();
     
-    //######################### publi properties #########################
+    //######################### public properties - events #########################
 
     /**
      * Gets observable that is used for indication that messages are being cleared
@@ -32,6 +30,14 @@ export abstract class NotificationsService
     public get clearingMessages(): Observable<any>
     {
         return this._clearSubject.asObservable();
+    }
+
+    /**
+     * Gets observable that is used for notifying user
+     */
+    public get notifying(): Observable<Notification>
+    {
+        return this._notifying.asObservable();
     }
 
     //######################### public methods #########################
@@ -88,7 +94,7 @@ export abstract class NotificationsService
      */
     private _onNotify(notification: Notification)
     {
-        this.notifying.emit(notification);
+        this._notifying.next(notification);
     }
 }
 

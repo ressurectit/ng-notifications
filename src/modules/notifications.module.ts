@@ -1,5 +1,6 @@
 import {CommonModule} from '@angular/common';
 import {NgModule, ModuleWithProviders} from '@angular/core';
+
 import {GlobalNotificationsService} from '../common/notifications.service';
 import {Notifications} from '../common/notifications.component';
 import {GlobalNotifications} from '../common/global-notifications.component';

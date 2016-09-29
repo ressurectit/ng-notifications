@@ -13,7 +13,7 @@ import {NotificationMessage} from '../common/notification.message.component';
 {
     imports: [CommonModule],
     declarations: [NotificationMessage, GlobalNotifications, Notifications],
-    exports: [NotificationMessage, GlobalNotifications, Notifications]
+    exports: [GlobalNotifications, Notifications]
 })
 export class NotificationsModule
 {

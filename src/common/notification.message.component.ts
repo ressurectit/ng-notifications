@@ -82,11 +82,6 @@ export class NotificationMessage
     @Output()
     public closed: EventEmitter<Notification> = new EventEmitter();
     
-    //######################### constructor #########################
-    constructor(private _element: ElementRef)
-    {
-    }
-    
     //######################### public methods #########################
     
     /**

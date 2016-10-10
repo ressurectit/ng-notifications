@@ -1,4 +1,302 @@
-# Angular 2 module for displaying notifications
+# Angular 2 Notifications
 
-General module for angular 2 
+Angular 2 module for displaying notifications.
 
+Module contains components for displaying local and global notifications.
+
+* [Installation](#installation)
+* [Types](#types)
+* [Usage](#usage)
+* [API](#api)
+* [Change Log](./changelog.md)
+
+## Installation
+
+To install latest version of this module you just run:
+
+```nocode
+npm install "@ng2/notifications" --save
+```
+
+### SystemJs Usage
+
+In your **SystemJs** configuration script add following lines to `packages` configuration section:
+
+```javascript
+packages:
+{
+    '@ng2/notifications': 
+    {
+        main: "dist/index.dev.min.js",
+        defaultExtension: 'js'
+    }
+}
+```
+
+### Webpack Usage
+
+In your application create file called *dependencies.ts* and add following line:
+```typescript
+import '@ng2/notifications';
+```
+
+Then add this file as `entry` point in your *webpack.config.js*:
+```javascript
+"vendor-import": path.join(__dirname, "pathToVendorTsDirectory/vendor.ts")
+```
+
+Then reference this file in your *index.html* at the end of body before application start javascript:
+```html
+<script src="webpackOutputDirectory/vendor-import.js"></script>
+```
+
+## Types
+
+Available types:
+
+### Modules
+
+ - `NotificationsModule`
+
+### Components
+
+- `Notifications`
+- `GlobalNotifications`
+- `NotificationMessage`
+
+### Interfaces, classes, enums
+
+- `Notification`
+- `NotificationType`
+- `NotificationsOptions`
+
+### Services
+
+- `GlobalNotificationsService`
+- `LocalNotificationsService`
+
+## Usage
+### Import Module
+#### Typescript
+
+This enables usage of all 'Notifications' components.
+
+```typescript
+import {NgModule} from '@angular/core';
+import {NotificationsModule, GlobalNotificationsService} from '@ng2/notifications';
+import {GlobalSampleComponent} from '.globalSample.component';
+import {LocalSampleComponent} from '.localSample.component';
+
+/**
+ * Definition of your module
+ */
+@NgModule(
+{
+    imports: [NotificationsModule],
+    declarations: [GlobalSampleComponent, LocalSampleComponent],
+    providers: [GlobalNotificationsService]
+})
+export class YourModule
+{
+}
+```
+
+### Global notifications usage
+#### Typescript
+
+*basicGrid.component.ts*
+```typescript
+import {Component} from '@angular/core';
+import {GridOptions} from '@ng2/grid';
+
+/**
+ * Basic grid sample component
+ */
+@Component(
+{
+    moduleId: module.id,
+    templateUrl: 'basicGrid.component.html'
+})
+export class BasicGridComponent
+{
+    //######################### public properties #########################
+
+    /**
+     * Grid options that are used for grid initialization
+     */
+    public gridOptions: GridOptions;
+
+    /**
+     * Data for grid
+     */
+    public data: any[] = [];
+
+    /**
+     * Number of all items
+     */
+    public totalCount: number = 0;
+
+    //######################### constructor #########################
+    constructor()
+    {
+        this.gridOptions =
+        {
+            initialItemsPerPage: 10,
+            initialPage: 1,
+            dataCallback: this._getData.bind(this),
+            itemsPerPageValues: [10, 20]
+        };
+    }
+
+    //######################### private methods #########################
+
+    /**
+     * Gets data for grid
+     * @param  {number} page Index of requested page
+     * @param  {number} itemsPerPage Number of items per page
+     * @param  {string} orderBy Order by column name
+     * @param  {OrderByDirection} orderByDirection Order by direction
+     * @param  {IFinancialRecordFilter} filterData Filter data
+     */
+    private _getData(page: number, itemsPerPage: number, orderBy: string, orderByDirection: OrderByDirection): void
+    {
+        this.data =
+        [
+            {
+                name: "Testo",
+                surname: "Steron",
+                email: "testo@steron.sk",
+                address: "Veľká Suchá"
+            },
+            {
+                name: "Testovič",
+                surname: "Testov",
+                email: "testovic@testov.sk",
+                address: "Pondelok"
+            }
+        ];
+
+        this.totalCount = 2;
+    }
+}
+```
+
+#### Template
+
+*basicGrid.component.html*
+``` html
+<div>
+    <ng2-grid id="gridUniqueIdPerApp" [data]="data" [options]="gridOptions" [totalCount]="totalCount">
+        <ng2-column name="name" title="First name"></ng2-column>
+        <ng2-column name="surname" title="Surname"></ng2-column>
+        <ng2-column name="email" title="E-Mail"></ng2-column>
+        <ng2-column name="address" title="Address"></ng2-column>
+    </ng2-grid>
+</div>
+```
+
+## API
+
+### `GridOptions` - Options for grid configuration
+
+#### *Properties*
+
+- `pagingEnabled?: boolean` - Indication whether is paging enabled
+- `columnsSelection?: boolean` - Indication whether is column selection allowed
+- `cssClass?: string` - Css class that is applied to root div of grid
+- `columnGroupCssClass?: string` - Css class that is applied to each column group row
+- `columnSelectionCssClass?: string` - Name of css class that is applied to column selection div
+- `initialPage?: number` - Initial page index that will be rendered
+- `initialItemsPerPage?: number` - Initial number of items per page that will be rendered
+- `itemsPerPageValues?: number[]` - Available values for items per page, if not set you wont be able to change number items per page
+- `debounceDataCallback?: number` - Number of miliseconds that are used for debounce call of dataCallback, or false
+- `dataCallback?: (page: number, itemsPerPage: number, orderBy: string, orderByDirection: OrderByDirection) => void` - Callback that is used for changing displayed data
+
+---
+### `PagingComponent` - Component used for rendering paging
+
+#### *Component*
+ - `selector: "paging"`
+ - `inputs`
+    - `itemsPerPageValues: number[]` - Gets or sets array of available values for itemsPerPage DEFAULT: []
+    - `pagesDispersion: number` - Page dispersion parameter for rendered pages DEFAULT: 4
+    - `page: number` - Gets or sets index of currently selected page
+    - `itemsPerPage: number` - Gets or sets number of items currently used for paging
+    - `totalCount: number` - Gets or sets number of all items that are paged with current filter criteria
+ - `outputs`
+    - `pageChange: EventEmitter<number>` - Occurs when index of currently selected page has been changed
+    - `itemsPerPageChange: EventEmitter<number>` - Occurs when number of items per page currently selected has been changed
+
+#### *Properties*
+ - `itemsPerPageValues: number[]` - Gets or sets array of available values for itemsPerPage DEFAULT: []
+ - `pagesDispersion: number` - Page dispersion parameter for rendered pages DEFAULT: 4
+ - `page: number` - Gets or sets index of currently selected page
+ - `itemsPerPage: number` - Gets or sets number of items currently used for paging
+ - `totalCount: number` - Gets or sets number of all items that are paged with current filter criteria
+ - `pageChange: EventEmitter<number>` - Occurs when index of currently selected page has been changed
+ - `itemsPerPageChange: EventEmitter<number>` - Occurs when number of items per page currently selected has been changed
+    
+---
+### `ColumnComponent` - Definition of column metadata
+
+#### *Component*
+ - `selector: "ng2-grid > ng2-column"`
+ - `inputs`
+    - `name: string` - Name of property which is assigned to this column
+    - `title: string` - Title of column that is displayed in grid header
+    - `titleVisible: boolean` - Indication whether should be title visible in header of table DEFAULT: true
+    - `ordering: boolean` - Indication that this column can be used for ordering DEFAULT: false
+    - `visible: boolean` - Indication that this column is visible in grid DEFAULT: true
+    - `width: string` - Width as style string, value is exactly same (require units) DEFAULT: null
+    - `headerClass: string` - Css class that is applied to column header DEFAULT: null
+    - `cellClass: string` - Css class that is applied to each column cell DEFAULT: null
+    - `columnGroupName: string` - Name of column group that is this column assigned to DEFAULT: null
+ - `contentChild`
+    - `TemplateRef` - Template that is used for rendering of cell
+        - **template variables** 
+            - `$implicit: any` - Data of current row
+            - `column: ColumnComponent` -  Object of column itself
+            - `index: number` - Index of rendered row in current page
+            - `rowIndex: number` - Row index of displayed item
+
+---
+### `ColumnGroupComponent` - Definition of column group metadata
+
+#### *Component*
+ - `selector: "ng2-grid > ng2-columnGroup, ng2-columnGroup > ng2-columnGroup"`
+ - `inputs`
+    - `name: string` - Name of column group
+    - `title: string` - Title of column group that is displayed
+    - `cssClass: string` - Css class that is applied to column group
+
+---
+### `GridComponent` - Grid component used for displaying data
+
+#### *Component*
+ - `selector: "ng2-grid"`
+ - `inputs`
+    - `id: string` - Id of grid, must be unique
+    - `data: any[]` - Gets or sets data that are rendered in grid
+    - `totalCount: number` - Number of all items for current filter
+    - `rowCssClassCallback: (rowData: any) => string` - Callback function that is called for each row with data of row and allows you to return string css classes, enables adding special css classes to row
+    - `options: GridOptions` - Set options that are used for configuring grid
+ - `contentChildren`
+    - `ColumnComponent` - Array of column definitions for columns, content getter
+    - `ColumnGroupComponent` - Array of column group definitions for grid, content getter
+ 
+ #### *Properties*
+ - `id: string` - Id of grid, must be unique
+ - `data: any[]` - Gets or sets data that are rendered in grid
+ - `totalCount: number` - Number of all items for current filter
+ - `rowCssClassCallback: (rowData: any) => string` - Callback function that is called for each row with data of row and allows you to return string css classes, enables adding special css classes to row
+ - `options: GridOptions` - Set options that are used for configuring grid
+ - `page: number` - Gets or sets current page number of grid
+ - `itemsPerPage: number` - Gets or sets current number of items per page
+
+ #### *Methods*
+ - `toggleColumn(index: number)` - Toggles visibility of column
+    - `index: number` - Index of toggled column
+ - `refreshToDefault()` - Refresh grid data with initial paging and ordering
+ - `refresh()` - Refresh grid data
+ - `performsOrdering(orderingColumn: ColumnComponent|string)` - Performs ordering on provided column
+    - `orderingColumn: ColumnComponent|string` - Name of column or column itself that is used for ordering

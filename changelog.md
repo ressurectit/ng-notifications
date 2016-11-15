@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 2.2.0
+ - angular 2.2.0
+
 ## Version 2.0.2
 
 - fixed notifications animations 

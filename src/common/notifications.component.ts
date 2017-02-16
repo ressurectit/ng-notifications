@@ -2,7 +2,7 @@ import {Component,
         OnDestroy,
         Input,
         Optional} from '@angular/core';
-import {SlideInOutAnimation} from '@ng2/animations';
+import {SlideInOutAnimation} from '@anglr/animations';
 
 import {NotificationsOptions} from './notifications.options';
 import {Notification} from './notification';

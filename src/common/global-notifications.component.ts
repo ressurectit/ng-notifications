@@ -1,6 +1,6 @@
 import {Component,
         Optional} from '@angular/core';
-import {SlideInOutAnimation} from '@ng2/animations';
+import {SlideInOutAnimation} from '@anglr/animations';
 
 import {NotificationsOptions} from './notifications.options';
 import {GlobalNotificationsService} from './notifications.service';

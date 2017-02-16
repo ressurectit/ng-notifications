@@ -1,6 +1,11 @@
 # Changelog
 
+## Version 3.0.0-beta.0
+
+- angular 4.0.0-beta.7
+
 ## Version 2.2.0
+
  - angular 2.2.0
 
 ## Version 2.0.2

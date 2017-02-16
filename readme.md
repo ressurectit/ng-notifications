@@ -1,6 +1,6 @@
-# Angular 2 Notifications
+# Angular Notifications
 
-Angular 2 module for displaying notifications.
+Angular module for displaying notifications.
 
 Module contains components for displaying local and global notifications.
 

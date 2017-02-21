@@ -30,7 +30,7 @@ import {Notifications} from './notifications.component';
     `],
     template:
    `<div [class]="cssClass">
-        <notification *ngFor="let itm of _notifications"
+        <notification *ngFor="let itm of notifications"
                       [@slideInOut]
                       [item]="itm"
                       [clickToClose]="options.clickToClose"

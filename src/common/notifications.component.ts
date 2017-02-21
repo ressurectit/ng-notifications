@@ -25,7 +25,7 @@ import {Subscription} from 'rxjs/Subscription';
     `],
     template:
    `<div [class]="cssClass">
-        <notification *ngFor="let itm of _notifications"
+        <notification *ngFor="let itm of notifications"
                       [@slideInOut]
                       [item]="itm"
                       [clickToClose]="options.clickToClose"
@@ -53,10 +53,12 @@ export class Notifications implements OnDestroy
      */
     private _notifyingSubscription: Subscription = null;
 
+    //######################### public properties #########################
+
     /**
      * Array of displayed notifications - displayed set
      */
-    private _notifications: Notification[] = [];
+    public notifications: Notification[] = [];
 
     //######################### public properties - inputs #########################
 
@@ -81,7 +83,7 @@ export class Notifications implements OnDestroy
         //removing all displayed items
         this._clearingSubscription = service.clearingMessages.subscribe(() =>
         {
-            this._notifications.forEach(notification =>
+            this.notifications.forEach(notification =>
             {
                 this.removeItem(notification);
             });
@@ -91,9 +93,9 @@ export class Notifications implements OnDestroy
         {
             var id = 0;
 
-            if(this._notifications.length > 0)
+            if(this.notifications.length > 0)
             {
-                id = this._notifications[this._notifications.length - 1].id + 1;
+                id = this.notifications[this.notifications.length - 1].id + 1;
             }
 
             itm.id = id;
@@ -123,7 +125,7 @@ export class Notifications implements OnDestroy
      */
     public addItem(item: Notification)
     {
-        this._notifications.push(item);
+        this.notifications.push(item);
     }
 
     /**
@@ -132,13 +134,13 @@ export class Notifications implements OnDestroy
      */
     public removeItem(item: Notification)
     {
-        var index = this._notifications.indexOf(item);
+        var index = this.notifications.indexOf(item);
 
         if (index > -1)
         {
             clearTimeout(this._timeouts[item.id]);
             delete this._timeouts[item.id];
-            this._notifications.splice(index, 1);
+            this.notifications.splice(index, 1);
         }
     }
 

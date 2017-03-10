@@ -1,5 +1,7 @@
 import {Component,
-        Optional} from '@angular/core';
+        Optional, 
+        PLATFORM_ID, 
+        Inject} from '@angular/core';
 import {SlideInOutAnimation} from '@anglr/animations';
 
 import {NotificationsOptions} from './notifications.options';
@@ -43,9 +45,10 @@ export class GlobalNotifications extends Notifications
 {
     //######################### constructor #########################
     constructor(@Optional() options: NotificationsOptions,
-                service: GlobalNotificationsService)
+                service: GlobalNotificationsService,
+                @Inject(PLATFORM_ID) platformId: string)
     {
-        super(options, service);
+        super(options, service, platformId);
         
         this.cssClass = "notifications global";
     }

@@ -2,7 +2,8 @@ import {Component,
         OnDestroy,
         Input,
         Optional,
-        PLATFORM_ID} from '@angular/core';
+        PLATFORM_ID, 
+        Inject} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import {SlideInOutAnimation} from '@anglr/animations';
 
@@ -72,7 +73,8 @@ export class Notifications implements OnDestroy
 
     //######################### constructor #########################
     constructor(@Optional() public options: NotificationsOptions,
-                service: LocalNotificationsService)
+                service: LocalNotificationsService,
+                @Inject(PLATFORM_ID) platformId: string)
     {
         if(options && !(options instanceof NotificationsOptions))
         {
@@ -81,6 +83,11 @@ export class Notifications implements OnDestroy
         }
 
         this.options = options || new NotificationsOptions(10000, true, 500);
+
+        if(!isPlatformBrowser(platformId))
+        {
+            return;
+        }
 
         //removing all displayed items
         this._clearingSubscription = service.clearingMessages.subscribe(() =>
@@ -107,7 +114,7 @@ export class Notifications implements OnDestroy
                 itm.message = itm.message.substr(0, this.options.maxLength) + " ...";
             }
 
-            if(this.options.timeOut > 0 && isPlatformBrowser(PLATFORM_ID))
+            if(this.options.timeOut > 0)
             {
                 this._timeouts[id] = setTimeout(() =>
                 {

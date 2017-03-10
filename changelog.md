@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 3.0.0-beta.2
+
+- angular 4.0.0-rc.2
+- tree shaking enabled
+- timeout option used only in browser environment
+
+## Version 3.0.0-beta.1
+
+- angular 4.0.0-beta.8
+- angular AOT compliant
+
 ## Version 3.0.0-beta.0
 
 - angular 4.0.0-beta.7

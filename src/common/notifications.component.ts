@@ -1,7 +1,9 @@
 import {Component,
         OnDestroy,
         Input,
-        Optional} from '@angular/core';
+        Optional,
+        PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 import {SlideInOutAnimation} from '@anglr/animations';
 
 import {NotificationsOptions} from './notifications.options';
@@ -105,7 +107,7 @@ export class Notifications implements OnDestroy
                 itm.message = itm.message.substr(0, this.options.maxLength) + " ...";
             }
 
-            if(this.options.timeOut > 0)
+            if(this.options.timeOut > 0 && isPlatformBrowser(PLATFORM_ID))
             {
                 this._timeouts[id] = setTimeout(() =>
                 {

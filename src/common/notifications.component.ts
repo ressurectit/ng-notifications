@@ -92,10 +92,10 @@ export class Notifications implements OnDestroy
         //removing all displayed items
         this._clearingSubscription = service.clearingMessages.subscribe(() =>
         {
-            this.notifications.forEach(notification =>
+            while(this.notifications.length > 0)
             {
-                this.removeItem(notification);
-            });
+                this.removeItem(this.notifications[0]);
+            }
         });
 
         this._notifyingSubscription = service.notifying.subscribe((itm: Notification) =>

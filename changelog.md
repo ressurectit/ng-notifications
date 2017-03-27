@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 3.0.0-beta.4
+- bugfix fixed clear messages
+
+## Version 3.0.0-beta.3
+- enabled for SSR
+
 ## Version 3.0.0-beta.2
 
 - angular 4.0.0-rc.2

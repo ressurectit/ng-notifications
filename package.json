@@ -1,6 +1,6 @@
 {
     "name": "@anglr/notifications",
-    "version": "3.0.0-beta.3",
+    "version": "3.0.0-beta.4",
     "description": "Angular module for displaying notifications",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
@@ -31,20 +31,20 @@
     "dependencies":
     {
 
-        "@angular/core":  ">=4.0.0-rc.2",
-        "@angular/common":  ">=4.0.0-rc.2",
+        "@angular/core":  "^4.0.0",
+        "@angular/common":  "^4.0.0",
         "core-js": "~2.4.1",
-        "zone.js": "~0.7.7",
-        "rxjs": "^5.1.1",
-        "@anglr/animations": ">=3.0.0-beta.3"
+        "zone.js": "^0.8.5",
+        "rxjs": "^5.2.0",
+        "@anglr/animations": "^3.0.0"
     },
     "devDependencies":
     {
-        "@angular/compiler-cli": ">=4.0.0-rc.2",
-        "@angular/compiler":  ">=4.0.0-rc.2",
-        "rimraf": "~2.5.4",
-        "typescript": "2.1.6",
-        "webpack": "2.2.1",
+        "@angular/compiler-cli": "^4.0.0",
+        "@angular/compiler":  "^4.0.0",
+        "rimraf": "~2.6.1",
+        "typescript": "2.2.1",
+        "webpack": "2.3.2",
         "npm-publish-package": "~1.2.0"
     }
 }

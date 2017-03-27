@@ -46,7 +46,7 @@ export class GlobalNotifications extends Notifications
     //######################### constructor #########################
     constructor(@Optional() options: NotificationsOptions,
                 service: GlobalNotificationsService,
-                @Inject(PLATFORM_ID) platformId: string)
+                @Inject(PLATFORM_ID) platformId: Object)
     {
         super(options, service, platformId);
         

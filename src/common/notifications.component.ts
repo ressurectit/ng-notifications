@@ -74,7 +74,7 @@ export class Notifications implements OnDestroy
     //######################### constructor #########################
     constructor(@Optional() public options: NotificationsOptions,
                 service: LocalNotificationsService,
-                @Inject(PLATFORM_ID) platformId: string)
+                @Inject(PLATFORM_ID) platformId: Object)
     {
         if(options && !(options instanceof NotificationsOptions))
         {

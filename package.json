@@ -1,6 +1,6 @@
 {
     "name": "@anglr/notifications",
-    "version": "3.0.0-beta.4",
+    "version": "3.0.0",
     "description": "Angular module for displaying notifications",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",

@@ -5,7 +5,7 @@ import {Component,
         PLATFORM_ID, 
         Inject} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
-import {SlideInOutAnimation} from '@anglr/animations';
+import {slideInOutTrigger} from '@anglr/animations';
 
 import {NotificationsOptions} from './notifications.options';
 import {Notification} from './notification';
@@ -35,7 +35,7 @@ import {Subscription} from 'rxjs/Subscription';
                       (closed)="removeItem($event)">
         </notification>
     </div>`,
-    animations: [SlideInOutAnimation]
+    animations: [slideInOutTrigger]
 })
 export class Notifications implements OnDestroy
 {

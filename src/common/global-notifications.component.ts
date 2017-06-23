@@ -2,7 +2,7 @@ import {Component,
         Optional, 
         PLATFORM_ID, 
         Inject} from '@angular/core';
-import {SlideInOutAnimation} from '@anglr/animations';
+import {slideInOutTrigger} from '@anglr/animations';
 
 import {NotificationsOptions} from './notifications.options';
 import {GlobalNotificationsService} from './notifications.service';
@@ -39,7 +39,7 @@ import {Notifications} from './notifications.component';
                       (closed)="removeItem($event)">
         </notification>
     </div>`,
-    animations: [SlideInOutAnimation]
+    animations: [slideInOutTrigger]
 })
 export class GlobalNotifications extends Notifications
 {

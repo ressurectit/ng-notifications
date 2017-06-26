@@ -13,13 +13,21 @@
         "lib": 
         [
             "es6", "dom"
+        ],
+        "plugins": 
+        [
+            {
+                "name": "@angular/language-service"
+            }
         ]
     },
     "exclude": 
     [
         "node_modules",
         "dist",
-        "testing"
+        "testing",
+        "*.spec.ts",
+        "karma-test-shim.ts"
     ],
     "angularCompilerOptions": 
     {

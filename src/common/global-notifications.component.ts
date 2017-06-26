@@ -1,7 +1,9 @@
 import {Component,
         Optional, 
         PLATFORM_ID, 
-        Inject} from '@angular/core';
+        ChangeDetectorRef,
+        Inject,
+        ChangeDetectionStrategy} from '@angular/core';
 import {slideInOutTrigger} from '@anglr/animations';
 
 import {NotificationsOptions} from './notifications.options';
@@ -39,16 +41,18 @@ import {Notifications} from './notifications.component';
                       (closed)="removeItem($event)">
         </notification>
     </div>`,
-    animations: [slideInOutTrigger]
+    animations: [slideInOutTrigger],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GlobalNotifications extends Notifications
 {
     //######################### constructor #########################
     constructor(@Optional() options: NotificationsOptions,
                 service: GlobalNotificationsService,
+                changeDetector: ChangeDetectorRef,
                 @Inject(PLATFORM_ID) platformId: Object)
     {
-        super(options, service, platformId);
+        super(options, service, changeDetector, platformId);
         
         this.cssClass = "notifications global";
     }

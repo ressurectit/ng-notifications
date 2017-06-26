@@ -3,7 +3,9 @@ import {Component,
         Input,
         Optional,
         PLATFORM_ID, 
-        Inject} from '@angular/core';
+        Inject,
+        ChangeDetectionStrategy,
+        ChangeDetectorRef} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import {slideInOutTrigger} from '@anglr/animations';
 
@@ -35,7 +37,8 @@ import {Subscription} from 'rxjs/Subscription';
                       (closed)="removeItem($event)">
         </notification>
     </div>`,
-    animations: [slideInOutTrigger]
+    animations: [slideInOutTrigger],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Notifications implements OnDestroy
 {
@@ -74,6 +77,7 @@ export class Notifications implements OnDestroy
     //######################### constructor #########################
     constructor(@Optional() public options: NotificationsOptions,
                 service: LocalNotificationsService,
+                private _changeDetector: ChangeDetectorRef,
                 @Inject(PLATFORM_ID) platformId: Object)
     {
         if(options && !(options instanceof NotificationsOptions))
@@ -96,6 +100,8 @@ export class Notifications implements OnDestroy
             {
                 this.removeItem(this.notifications[0]);
             }
+
+            this._changeDetector.detectChanges();
         });
 
         this._notifyingSubscription = service.notifying.subscribe((itm: Notification) =>
@@ -119,10 +125,13 @@ export class Notifications implements OnDestroy
                 this._timeouts[id] = setTimeout(() =>
                 {
                     this.removeItem(itm);
+                    this._changeDetector.detectChanges();
                 }, this.options.timeOut);
             }
 
             this.addItem(itm);
+
+            this._changeDetector.detectChanges();
         });
     }
 

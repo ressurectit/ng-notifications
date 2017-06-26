@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 3.1.1
+- `ChangeDetectionStrategy.OnPush` set for both notifications components
+
+## Version 3.1.0
+- using latest angular 4.2 animation features
+
+## Version 3.0.1
+- angular module with support for options
+
+## Version 3.0.0
+- finalized version for angular 4, aot and ssr
+
 ## Version 3.0.0-beta.4
 - bugfix fixed clear messages
 

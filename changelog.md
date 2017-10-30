@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 4.0.0-beta.0
+ - updated angular to >=5.0.0-rc.7
+
 ## Version 3.1.1
 - `ChangeDetectionStrategy.OnPush` set for both notifications components
 

@@ -1,5 +1,4 @@
 import {Component,
-        ElementRef,
         Input,
         Output,
         EventEmitter} from '@angular/core';
@@ -46,7 +45,7 @@ export class NotificationMessage
     /**
      * Object representing css class definition
      */
-    public classObj = { clickable: false };
+    public classObj: {[key: string]: any, clickable: boolean} = { clickable: false };
     
     //######################### public properties - inputs #########################
     

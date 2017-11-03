@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed, fakeAsync, tick} from '@angular/core/testing';
-import {ValueProvider, DebugElement} from '@angular/core';
+import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -9,7 +9,7 @@ import {LocalNotificationsService} from "./notifications.service";
 
 describe('Local Notifications component - with default options', () =>
 {
-    let comp: Notifications;
+    //let comp: Notifications;
     let fixture: ComponentFixture<Notifications>;
     let mainDivDElement: DebugElement;
 
@@ -33,7 +33,7 @@ describe('Local Notifications component - with default options', () =>
         });
 
         fixture = TestBed.createComponent(Notifications);
-        comp = fixture.componentInstance;
+        //comp = fixture.componentInstance;
 
         //OnInit()
         fixture.detectChanges();

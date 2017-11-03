@@ -52,12 +52,12 @@ export class Notifications implements OnDestroy
     /**
      * Subscription for clearing event
      */
-    private _clearingSubscription: Subscription = null;
+    private _clearingSubscription: Subscription|null = null;
 
     /**
      * Subscription for notifying event
      */
-    private _notifyingSubscription: Subscription = null;
+    private _notifyingSubscription: Subscription|null = null;
 
     //######################### public properties #########################
 
@@ -75,7 +75,7 @@ export class Notifications implements OnDestroy
     public cssClass: string = "notifications";
 
     //######################### constructor #########################
-    constructor(@Optional() public options: NotificationsOptions,
+    constructor(@Optional() public options: NotificationsOptions|null,
                 service: LocalNotificationsService,
                 private _changeDetector: ChangeDetectorRef,
                 @Inject(PLATFORM_ID) platformId: Object)

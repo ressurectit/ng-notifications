@@ -12,7 +12,7 @@ import {slideInOutTrigger} from '@anglr/animations';
 import {NotificationsOptions} from './notifications.options';
 import {Notification} from './notification';
 import {LocalNotificationsService} from './notifications.service';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 /**
  * Notifications component for local messages

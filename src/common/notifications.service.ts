@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 
 import {Notification} from './notification';
 import {NotificationType} from './notification.type';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
+import {Observable, Subject} from 'rxjs';
 
 /**
  * Notifications service used for creating notifications

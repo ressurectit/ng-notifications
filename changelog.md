@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 5.0.0-beta.2
+ - `@anglr/notifications` is now marked as *sideEffects* free
+ - `GlobalNotificationsService` is now *tree-shakeable*
+ - `NotificationsModule` removed `forRoot` methods, `NotificationsOptions` must be provided directly
+
 ## Version 5.0.0-beta.1
  - aktualizácia balíčkov `Angular` na `6`
  - aktualizácia `Webpack` na verziu `4`

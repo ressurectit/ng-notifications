@@ -100,7 +100,7 @@ export abstract class NotificationsService
 /**
  * Global notification service that is used for page global notifications
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class GlobalNotificationsService extends NotificationsService
 {
 }

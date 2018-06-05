@@ -46,6 +46,7 @@
         "rxjs": "^6.0.0",
         "@anglr/animations": "^5.0.0",
         "@types/jasmine": "~2.8.7",
+        "@types/node": "10.1.2",
         "@angular/compiler-cli": "^6.0.0",
         "@angular/compiler": "^6.0.0",
         "@angular/language-service": "^6.0.0",

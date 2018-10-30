@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 5.0.1
+ - updated usage of `NotificationOptions` fix for latest Typescript and @ngtools/webpack
+
 ## Version 5.0.0
  - stabilized for angular v6
 

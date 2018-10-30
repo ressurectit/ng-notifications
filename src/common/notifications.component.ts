@@ -75,10 +75,10 @@ export class Notifications implements OnDestroy
     public cssClass: string = "notifications";
 
     //######################### constructor #########################
-    constructor(@Optional() public options: NotificationsOptions|null,
-                service: LocalNotificationsService,
+    constructor(service: LocalNotificationsService,
                 private _changeDetector: ChangeDetectorRef,
-                @Inject(PLATFORM_ID) platformId: Object)
+                @Inject(PLATFORM_ID) platformId: Object,
+                @Optional() public options?: NotificationsOptions)
     {
         if(options && !(options instanceof NotificationsOptions))
         {

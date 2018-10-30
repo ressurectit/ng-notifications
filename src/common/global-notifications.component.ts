@@ -47,12 +47,12 @@ import {Notifications} from './notifications.component';
 export class GlobalNotifications extends Notifications
 {
     //######################### constructor #########################
-    constructor(@Optional() options: NotificationsOptions,
-                service: GlobalNotificationsService,
+    constructor(service: GlobalNotificationsService,
                 changeDetector: ChangeDetectorRef,
-                @Inject(PLATFORM_ID) platformId: Object)
+                @Inject(PLATFORM_ID) platformId: Object,
+                @Optional() options?: NotificationsOptions)
     {
-        super(options, service, changeDetector, platformId);
+        super(service, changeDetector, platformId, options);
         
         this.cssClass = "notifications global";
     }

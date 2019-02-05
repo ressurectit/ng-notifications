@@ -1,9 +1,7 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 
-import {Notifications} from '../common/notifications.component';
-import {GlobalNotifications} from '../common/global-notifications.component';
-import {NotificationMessage} from '../common/notification.message.component';
+import {NotificationMessageComponent, NotificationsComponent, GlobalNotificationsComponent} from '../components';
 
 /**
  * Module for notifications
@@ -11,8 +9,8 @@ import {NotificationMessage} from '../common/notification.message.component';
 @NgModule(
 {
     imports: [CommonModule],
-    declarations: [NotificationMessage, GlobalNotifications, Notifications],
-    exports: [GlobalNotifications, Notifications]
+    declarations: [NotificationMessageComponent, GlobalNotificationsComponent, NotificationsComponent],
+    exports: [GlobalNotificationsComponent, NotificationsComponent]
 })
 export class NotificationsModule
 {

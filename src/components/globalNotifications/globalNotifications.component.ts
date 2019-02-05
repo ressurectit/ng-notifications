@@ -1,14 +1,8 @@
-import {Component,
-        Optional, 
-        PLATFORM_ID, 
-        ChangeDetectorRef,
-        Inject,
-        ChangeDetectionStrategy} from '@angular/core';
+import {Component, Optional, PLATFORM_ID, ChangeDetectorRef, Inject, ChangeDetectionStrategy} from '@angular/core';
 import {slideInOutTrigger} from '@anglr/animations';
 
-import {NotificationsOptions} from './notifications.options';
-import {GlobalNotificationsService} from './notifications.service';
-import {Notifications} from './notifications.component';
+import {NotificationsOptions, GlobalNotificationsService} from '../../common';
+import {NotificationsComponent} from '../notifications/notifications.component';
 
 /**
  * Notifications component for global messages
@@ -32,19 +26,11 @@ import {Notifications} from './notifications.component';
             overflow: hidden;
         }
     `],
-    template:
-   `<div [class]="cssClass">
-        <notification *ngFor="let itm of notifications"
-                      [@slideInOut]
-                      [item]="itm"
-                      [clickToClose]="options.clickToClose"
-                      (closed)="removeItem($event)">
-        </notification>
-    </div>`,
+    templateUrl: 'globalNotifications.component.html',
     animations: [slideInOutTrigger],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GlobalNotifications extends Notifications
+export class GlobalNotificationsComponent extends NotificationsComponent
 {
     //######################### constructor #########################
     constructor(service: GlobalNotificationsService,

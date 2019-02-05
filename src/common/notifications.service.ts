@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 
 import {Notification} from './notification';
 import {NotificationType} from './notification.type';
-import {Observable, Subject} from 'rxjs';
 
 /**
  * Notifications service used for creating notifications
@@ -14,7 +14,7 @@ export abstract class NotificationsService
     /**
      * Subjet used for emitting clear messages event 
      */
-    private _clearSubject: Subject<any> = new Subject<any>();
+    private _clearSubject: Subject<void> = new Subject<void>();
 
     /**
      * Subject used for emittin notifying event 
@@ -26,7 +26,7 @@ export abstract class NotificationsService
     /**
      * Gets observable that is used for indication that messages are being cleared
      */
-    public get clearingMessages(): Observable<any>
+    public get clearingMessages(): Observable<void>
     {
         return this._clearSubject.asObservable();
     }
@@ -82,7 +82,7 @@ export abstract class NotificationsService
      */
     public clearMessages()
     {
-        this._clearSubject.next(null);
+        this._clearSubject.next();
     }
     
     //######################### private methods #########################

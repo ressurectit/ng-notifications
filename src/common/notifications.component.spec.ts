@@ -3,14 +3,13 @@ import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
-import {Notifications} from "./notifications.component";
-import {NotificationMessage} from "./notification.message.component";
+import {NotificationsComponent, NotificationMessageComponent} from "../components";
 import {LocalNotificationsService} from "./notifications.service";
 
 describe('Local Notifications component - with default options', () =>
 {
     //let comp: Notifications;
-    let fixture: ComponentFixture<Notifications>;
+    let fixture: ComponentFixture<NotificationsComponent>;
     let mainDivDElement: DebugElement;
 
     beforeEach(() =>
@@ -23,8 +22,8 @@ describe('Local Notifications component - with default options', () =>
             ],
             declarations: 
             [
-                Notifications, 
-                NotificationMessage
+                NotificationsComponent, 
+                NotificationMessageComponent
             ],
             providers:
             [
@@ -32,7 +31,7 @@ describe('Local Notifications component - with default options', () =>
             ]
         });
 
-        fixture = TestBed.createComponent(Notifications);
+        fixture = TestBed.createComponent(NotificationsComponent);
         //comp = fixture.componentInstance;
 
         //OnInit()

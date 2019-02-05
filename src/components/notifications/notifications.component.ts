@@ -1,18 +1,25 @@
-import {Component,
-        OnDestroy,
-        Input,
-        Optional,
-        PLATFORM_ID, 
-        Inject,
-        ChangeDetectionStrategy,
-        ChangeDetectorRef} from '@angular/core';
+import {Component, OnDestroy, Input, Optional, PLATFORM_ID, Inject, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import {slideInOutTrigger} from '@anglr/animations';
-
-import {NotificationsOptions} from './notifications.options';
-import {Notification} from './notification';
-import {LocalNotificationsService} from './notifications.service';
 import {Subscription} from 'rxjs';
+
+import {NotificationsOptions, Notification, LocalNotificationsService, NotificationMessageOptions} from '../../common';
+import {NotificationMessageComponent} from '../notificationMessage/notificationMessage.component';
+
+/**
+ * Default options for notifications component
+ * @internal
+ */
+const defaultOptions: NotificationsOptions<any, NotificationMessageOptions<any>> =
+{
+    cssClasses:
+    {
+        rootDiv: 'notifications'
+    },
+    maxLength: 500,
+    timeout: 10000,
+    getNotificationMessageComponent: () => NotificationMessageComponent
+};
 
 /**
  * Notifications component for local messages
@@ -20,7 +27,7 @@ import {Subscription} from 'rxjs';
 @Component(
 {
     selector: "notifications",
-    styles: 
+    styles:
     [`
         .notifications>notification
         {
@@ -28,19 +35,11 @@ import {Subscription} from 'rxjs';
             overflow: hidden;
         }
     `],
-    template:
-   `<div [class]="cssClass">
-        <notification *ngFor="let itm of notifications"
-                      [@slideInOut]
-                      [item]="itm"
-                      [clickToClose]="options.clickToClose"
-                      (closed)="removeItem($event)">
-        </notification>
-    </div>`,
+    templateUrl: 'notifications.component.html',
     animations: [slideInOutTrigger],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Notifications implements OnDestroy
+export class NotificationsComponent implements OnDestroy
 {
     //######################### private fields #########################
 
@@ -86,7 +85,7 @@ export class Notifications implements OnDestroy
             console.warn("Provided configuration for 'Notifications' is not of type 'NotificationsOptions' and will be ignored!");
         }
 
-        this.options = options || new NotificationsOptions(10000, true, 500);
+        this.options = options || new NotificationsOptions();
 
         if(!isPlatformBrowser(platformId))
         {
@@ -120,13 +119,13 @@ export class Notifications implements OnDestroy
                 itm.message = itm.message.substr(0, this.options.maxLength) + " ...";
             }
 
-            if(this.options.timeOut > 0)
+            if(this.options.timeout > 0)
             {
                 this._timeouts[id] = setTimeout(() =>
                 {
                     this.removeItem(itm);
                     this._changeDetector.detectChanges();
-                }, this.options.timeOut);
+                }, this.options.timeout);
             }
 
             this.addItem(itm);
@@ -163,7 +162,7 @@ export class Notifications implements OnDestroy
     }
 
     //######################### public methods - implementation of OnDestroy #########################
-    
+
     /**
      * Called when component is destroyed
      */

@@ -1,9 +1,10 @@
 import {Component, OnDestroy, Input, Optional, PLATFORM_ID, Inject, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
+import {extend} from '@jscrpt/common';
 import {slideInOutTrigger} from '@anglr/animations';
 import {Subscription} from 'rxjs';
 
-import {NotificationsOptions, Notification, LocalNotificationsService, NotificationMessageOptions} from '../../common';
+import {NotificationsOptions, Notification, LocalNotificationsService, NotificationMessageOptions, NOTIFICATIONS_OPTIONS} from '../../common';
 import {NotificationMessageComponent} from '../notificationMessage/notificationMessage.component';
 
 /**
@@ -58,34 +59,41 @@ export class NotificationsComponent implements OnDestroy
      */
     private _notifyingSubscription: Subscription|null = null;
 
-    //######################### public properties #########################
+    /**
+     * Represents notification options instance
+     */
+    private _options: NotificationsOptions<any, NotificationMessageOptions<any>>;
+
+    //######################### public properties - template bindings #########################
+
+    /**
+     * Options used for notification message
+     */
+    @Input()
+    public set options(options: NotificationsOptions<any, NotificationMessageOptions<any>>)
+    {
+        this._options = extend(true, this._options, options);
+    }
+    public get options(): NotificationsOptions<any, NotificationMessageOptions<any>>
+    {
+        return this._options;
+    }
+
+    //######################### public properties - template bindings #########################
 
     /**
      * Array of displayed notifications - displayed set
+     * @internal
      */
     public notifications: Notification[] = [];
-
-    //######################### public properties - inputs #########################
-
-    /**
-     * Css class that is assigned to root element of notifications
-     */
-    @Input()
-    public cssClass: string = "notifications";
 
     //######################### constructor #########################
     constructor(service: LocalNotificationsService,
                 private _changeDetector: ChangeDetectorRef,
                 @Inject(PLATFORM_ID) platformId: Object,
-                @Optional() public options?: NotificationsOptions)
+                @Inject(NOTIFICATIONS_OPTIONS) @Optional() options?: NotificationsOptions<any, NotificationMessageOptions<any>>)
     {
-        if(options && !(options instanceof NotificationsOptions))
-        {
-            this.options = null;
-            console.warn("Provided configuration for 'Notifications' is not of type 'NotificationsOptions' and will be ignored!");
-        }
-
-        this.options = options || new NotificationsOptions();
+        this._options = extend(true, {}, defaultOptions, options);
 
         if(!isPlatformBrowser(platformId))
         {

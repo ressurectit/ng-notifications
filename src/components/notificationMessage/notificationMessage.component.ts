@@ -22,7 +22,7 @@ const defaultOptions: NotificationMessageOptions<NotificationMessageCss> =
  * Notification message component that represents simple message
  */
 @Component(
-{
+ {
     selector: "notification",
     styles:
     [`

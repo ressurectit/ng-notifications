@@ -17,9 +17,10 @@ export class Notification
     
     /**
      * Unique id identifying notification
+     * @internal
      */
     public id: number;
-    
+
     /**
      * Creates instance of Notification
      * @param  {string} message Message displayed by notification

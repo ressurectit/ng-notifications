@@ -1,8 +1,8 @@
-<div [class]="cssClass">
-    <notification *ngFor="let itm of notifications"
-                  [@slideInOut]
-                  [item]="itm"
-                  [clickToClose]="options.clickToClose"
-                  (closed)="removeItem($event)">
-    </notification>
+<div [class]="options?.cssClasses">
+    <ng-container *ngFor="let itm of notifications" [@slideInOut]>
+        <ng-template [messageRenderer]="itm"
+                     [notificationsOptions]="options"
+                     (closed)="removeItem($event)">
+        </ng-template>
+    </ng-container>
 </div>

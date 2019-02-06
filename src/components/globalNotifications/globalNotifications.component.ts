@@ -1,8 +1,25 @@
 import {Component, Optional, PLATFORM_ID, ChangeDetectorRef, Inject, ChangeDetectionStrategy} from '@angular/core';
 import {slideInOutTrigger} from '@anglr/animations';
+import {extend} from '@jscrpt/common';
 
-import {NotificationsOptions, GlobalNotificationsService} from '../../common';
+import {NotificationsOptions, GlobalNotificationsService, NotificationMessageOptions, NOTIFICATIONS_OPTIONS} from '../../common';
 import {NotificationsComponent} from '../notifications/notifications.component';
+import {NotificationMessageComponent} from '../notificationMessage/notificationMessage.component';
+
+/**
+ * Default options for notifications component
+ * @internal
+ */
+const defaultOptions: NotificationsOptions<any, NotificationMessageOptions<any>> =
+{
+    cssClasses:
+    {
+        rootDiv: 'notifications global'
+    },
+    maxLength: 500,
+    timeout: 10000,
+    getNotificationMessageComponent: () => NotificationMessageComponent
+};
 
 /**
  * Notifications component for global messages
@@ -36,10 +53,10 @@ export class GlobalNotificationsComponent extends NotificationsComponent
     constructor(service: GlobalNotificationsService,
                 changeDetector: ChangeDetectorRef,
                 @Inject(PLATFORM_ID) platformId: Object,
-                @Optional() options?: NotificationsOptions)
+                @Inject(NOTIFICATIONS_OPTIONS) @Optional() options?: NotificationsOptions<any, NotificationMessageOptions<any>>)
     {
         super(service, changeDetector, platformId, options);
-        
-        this.cssClass = "notifications global";
+
+        this._options = extend(true, {}, defaultOptions, options);
     }
 }

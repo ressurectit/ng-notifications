@@ -47,22 +47,22 @@ export class NotificationsComponent implements OnDestroy
     /**
      * Array of active timeouts
      */
-    private _timeouts: {[index: number]: any} = {};
+    protected _timeouts: {[index: number]: any} = {};
 
     /**
      * Subscription for clearing event
      */
-    private _clearingSubscription: Subscription|null = null;
+    protected _clearingSubscription: Subscription|null = null;
 
     /**
      * Subscription for notifying event
      */
-    private _notifyingSubscription: Subscription|null = null;
+    protected _notifyingSubscription: Subscription|null = null;
 
     /**
      * Represents notification options instance
      */
-    private _options: NotificationsOptions<any, NotificationMessageOptions<any>>;
+    protected _options: NotificationsOptions<any, NotificationMessageOptions<any>>;
 
     //######################### public properties - template bindings #########################
 

@@ -1,8 +1,8 @@
-import {ComponentRef, Directive, Input, OnChanges, SimpleChanges, ViewContainerRef, EventEmitter, Output, ComponentFactoryResolver, OnDestroy} from '@angular/core';
+import {ComponentRef, Directive, Input, OnChanges, SimpleChanges, ViewContainerRef, EventEmitter, Output, ComponentFactoryResolver, OnDestroy, Inject, Optional, Type} from '@angular/core';
 import {nameof} from '@jscrpt/common';
 import {Subscription} from 'rxjs';
 
-import {NotificationMessage, NotificationMessageOptions, Notification, NotificationsOptions} from '../../common';
+import {NotificationMessage, NotificationMessageOptions, Notification, NotificationsOptions, NOTIFICATION_MESSAGE_SERVICE, NotificationMessageService} from '../../common';
 
 /**
 * Creates dynamically instance of component by its metadata
@@ -64,7 +64,8 @@ export class MessageRendererDirective implements OnChanges, OnDestroy
     }
 
     //######################### constructor #########################
-    constructor(private _viewContainerRef: ViewContainerRef)
+    constructor(private _viewContainerRef: ViewContainerRef,
+                @Inject(NOTIFICATION_MESSAGE_SERVICE) @Optional() private _notificationMessageService?: NotificationMessageService<any, NotificationMessageOptions<any>>)
     {
     }
 
@@ -80,7 +81,16 @@ export class MessageRendererDirective implements OnChanges, OnDestroy
         if(nameof<MessageRendererDirective>('notification') in changes && changes[nameof<MessageRendererDirective>('notification')].currentValue)
         {
             let injector = this._viewContainerRef.parentInjector;
-            let notificationMessageType = this.notificationsOptions.getNotificationMessageComponent(this.notification.type);
+            let notificationMessageType: Type<NotificationMessage<any, NotificationMessageOptions<any>>>;
+
+            if(this._notificationMessageService)
+            {
+                notificationMessageType = this._notificationMessageService.getNotificationMessageComponent(this.notification.type);
+            }
+            else
+            {
+                notificationMessageType = this.notificationsOptions.getNotificationMessageComponent(this.notification.type);
+            }
 
             const componentFactoryResolver: ComponentFactoryResolver = injector.get(ComponentFactoryResolver);
             const componentFactory = componentFactoryResolver.resolveComponentFactory(notificationMessageType);

@@ -117,3 +117,20 @@ export interface NotificationMessage<TCssClasses, TOptions extends NotificationM
      */
     invalidateVisuals(): void;
 }
+
+/**
+ * Token for injecting service that can be used for obtaining type of component for notification message
+ */
+export const NOTIFICATION_MESSAGE_SERVICE: InjectionToken<NotificationMessageService<any, NotificationMessageOptions<any>>> = new InjectionToken<NotificationMessageService<any, NotificationMessageOptions<any>>>('NOTIFICATION_MESSAGE_SERVICE');
+
+/**
+ * Represents service that can be used for obtaining notification message component type
+ */
+export interface NotificationMessageService<TCssClasses, TOptions extends NotificationMessageOptions<TCssClasses>>
+{
+    /**
+     * Gets component type used for displaying notification message
+     * @param type Type of notification that should be displayed
+     */
+    getNotificationMessageComponent(type: NotificationType): Type<NotificationMessage<TCssClasses, TOptions>>;
+}

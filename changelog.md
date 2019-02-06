@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 5.1.0
+ - completely refactored notifications
+ - now supports custom components that can be used for displaying messages
+ - now supports providing options using binding, or DI (new tokens)
+ - support for custom components using service
+
 ## Version 5.0.1
  - updated usage of `NotificationOptions` fix for latest Typescript and @ngtools/webpack
 

@@ -31,6 +31,12 @@ const defaultOptions: NotificationMessageOptions<NotificationMessageCss> =
         {
             cursor: pointer;
         }
+
+        :host
+        {
+            display: block;
+            overflow: hidden;
+        }
     `],
     templateUrl: 'notificationMessage.component.html',
     animations: [slideInOutTrigger],
@@ -64,7 +70,7 @@ export class NotificationMessageComponent implements NotificationMessage<Notific
      * Attach animation directly to component (enter, exit)
      * @internal
      */
-    @HostBinding('@slideInOut') 
+    @HostBinding('@slideInOut')
     public animatedMessage = true;
 
     //######################### public properties #########################

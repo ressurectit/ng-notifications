@@ -27,14 +27,6 @@ const defaultOptions: NotificationsOptions<any, NotificationMessageOptions<any>>
 @Component(
 {
     selector: "notifications",
-    styles:
-    [`
-        .notifications>notification
-        {
-            display: block;
-            overflow: hidden;
-        }
-    `],
     templateUrl: 'notifications.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })

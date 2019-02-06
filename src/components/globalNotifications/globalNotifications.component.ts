@@ -35,12 +35,6 @@ const defaultOptions: NotificationsOptions<any, NotificationMessageOptions<any>>
             top: 20px;
             z-index: 21312;
         }
-
-        .notifications.global>notification
-        {
-            display: block;
-            overflow: hidden;
-        }
     `],
     templateUrl: 'globalNotifications.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 5.1.1
+ - now again fully working animation
+
 ## Version 5.1.0
  - completely refactored notifications
  - now supports custom components that can be used for displaying messages

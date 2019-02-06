@@ -1,7 +1,6 @@
 import {Component, OnDestroy, Input, Optional, PLATFORM_ID, Inject, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import {extend} from '@jscrpt/common';
-import {slideInOutTrigger} from '@anglr/animations';
 import {Subscription} from 'rxjs';
 
 import {NotificationsOptions, Notification, LocalNotificationsService, NotificationMessageOptions, NOTIFICATIONS_OPTIONS} from '../../common';
@@ -37,7 +36,6 @@ const defaultOptions: NotificationsOptions<any, NotificationMessageOptions<any>>
         }
     `],
     templateUrl: 'notifications.component.html',
-    animations: [slideInOutTrigger],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotificationsComponent implements OnDestroy

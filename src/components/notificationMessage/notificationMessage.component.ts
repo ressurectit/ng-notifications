@@ -1,5 +1,6 @@
-import {Component, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, Inject, Optional} from '@angular/core';
+import {Component, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, Inject, Optional, HostBinding} from '@angular/core';
 import {extend} from '@jscrpt/common';
+import {slideInOutTrigger} from '@anglr/animations';
 
 import {Notification, NotificationType, NotificationMessage, NotificationMessageCss, NotificationMessageOptions, NOTIFICATION_MESSAGE_OPTIONS} from '../../common';
 
@@ -32,6 +33,7 @@ const defaultOptions: NotificationMessageOptions<NotificationMessageCss> =
         }
     `],
     templateUrl: 'notificationMessage.component.html',
+    animations: [slideInOutTrigger],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotificationMessageComponent implements NotificationMessage<NotificationMessageCss, NotificationMessageOptions<NotificationMessageCss>>
@@ -55,6 +57,15 @@ export class NotificationMessageComponent implements NotificationMessage<Notific
      * @internal
      */
     public classObj: {[key: string]: any} = {};
+
+    //######################### public properties - host #########################
+
+    /**
+     * Attach animation directly to component (enter, exit)
+     * @internal
+     */
+    @HostBinding('@slideInOut') 
+    public animatedMessage = true;
 
     //######################### public properties #########################
 

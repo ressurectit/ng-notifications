@@ -16,7 +16,7 @@
         "version:git": "ngv -e \"replace-in-file 0.0.0-placeholder $GIT_VERSION package.json\"",
         "prepublishOnly": "npm run bundle && npm run version:placeholder && npm run version:git",
         "postpublish": "npm run version:placeholder && npm run clean && npm run docs",
-        "bundle": "npm run clean && npm run build && copyfiles -u 1 src/**/*.html dist && nnrh *.js -d dist",
+        "bundle": "npm run clean && npm run build && nnrh *.js -d dist --htmlDir src",
         "deploy": "npm publish",
         "deploy:local": "npm publish --registry http://local:4873",
         "deploy:next": "npm publish --tag next",
@@ -78,6 +78,6 @@
         "typescript": "2.7.2",
         "webpack": "4.8.1",
         "npm-git-version": "1.1.0",
-        "npm-ng-require-html": "1.0.0"
+        "npm-ng-require-html": "1.0.2"
     }
 }

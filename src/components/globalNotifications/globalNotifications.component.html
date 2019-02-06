@@ -1,4 +1,4 @@
-<div [class]="options?.cssClasses">
+<div [ngClass]="options?.cssClasses?.rootDiv">
     <ng-container *ngFor="let itm of notifications" [@slideInOut]>
         <ng-template [messageRenderer]="itm"
                      [notificationsOptions]="options"

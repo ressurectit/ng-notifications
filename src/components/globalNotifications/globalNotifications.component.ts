@@ -1,5 +1,4 @@
 import {Component, Optional, PLATFORM_ID, ChangeDetectorRef, Inject, ChangeDetectionStrategy} from '@angular/core';
-import {slideInOutTrigger} from '@anglr/animations';
 import {extend} from '@jscrpt/common';
 
 import {NotificationsOptions, GlobalNotificationsService, NotificationMessageOptions, NOTIFICATIONS_OPTIONS} from '../../common';
@@ -44,7 +43,6 @@ const defaultOptions: NotificationsOptions<any, NotificationMessageOptions<any>>
         }
     `],
     templateUrl: 'globalNotifications.component.html',
-    animations: [slideInOutTrigger],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GlobalNotificationsComponent extends NotificationsComponent

@@ -23,8 +23,8 @@ export class Notification
 
     /**
      * Creates instance of Notification
-     * @param  {string} message Message displayed by notification
-     * @param  {NotificationType} type Type of notification message
+     * @param message Message displayed by notification
+     * @param type Type of notification message
      */
     constructor(message: string, type: NotificationType)
     {

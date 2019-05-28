@@ -43,7 +43,7 @@ export abstract class NotificationsService
     
     /**
      * Displays success notification
-     * @param  {string} message Message to be displayed
+     * @param message Message to be displayed
      */
     public success(message: string)
     {
@@ -52,7 +52,7 @@ export abstract class NotificationsService
     
     /**
      * Displays error notification
-     * @param  {string} message Message to be displayed
+     * @param message Message to be displayed
      */
     public error(message: string)
     {
@@ -61,7 +61,7 @@ export abstract class NotificationsService
     
     /**
      * Displays info notification
-     * @param  {string} message Message to be displayed
+     * @param message Message to be displayed
      */
     public info(message: string)
     {
@@ -70,7 +70,7 @@ export abstract class NotificationsService
     
     /**
      * Displays warning notification
-     * @param  {string} message Message to be displayed
+     * @param message Message to be displayed
      */
     public warning(message: string)
     {
@@ -89,7 +89,7 @@ export abstract class NotificationsService
     
     /**
      * Used for invoking notifying event emitter
-     * @param  {Notification} notification Notifications that should be displayed
+     * @param notification Notifications that should be displayed
      */
     private _onNotify(notification: Notification)
     {

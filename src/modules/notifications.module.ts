@@ -1,8 +1,10 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 
-import {NotificationMessageComponent, NotificationsComponent, GlobalNotificationsComponent} from '../components';
-import {MessageRendererDirective} from '../directives';
+import {GlobalNotificationsComponent} from '../components/globalNotifications/globalNotifications.component';
+import {NotificationMessageComponent} from '../components/notificationMessage/notificationMessage.component';
+import {NotificationsComponent} from '../components/notifications/notifications.component';
+import {MessageRendererDirective} from '../directives/componentRenderer/messageRenderer.directive';
 
 /**
  * Module for notifications

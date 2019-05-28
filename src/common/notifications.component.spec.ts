@@ -3,7 +3,8 @@ import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
-import {NotificationsComponent, NotificationMessageComponent} from "../components";
+import {NotificationsComponent} from "../components/notifications/notifications.component";
+import {NotificationMessageComponent} from "../components/notificationMessage/notificationMessage.component";
 import {LocalNotificationsService} from "./notifications.service";
 
 describe('Local Notifications component - with default options', () =>

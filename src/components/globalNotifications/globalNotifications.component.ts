@@ -1,7 +1,8 @@
 import {Component, Optional, PLATFORM_ID, ChangeDetectorRef, Inject, ChangeDetectionStrategy} from '@angular/core';
 import {extend} from '@jscrpt/common';
 
-import {NotificationsOptions, GlobalNotificationsService, NotificationMessageOptions, NOTIFICATIONS_OPTIONS} from '../../common';
+import {NotificationsOptions, NotificationMessageOptions, NOTIFICATIONS_OPTIONS} from '../../common/notifications.interface';
+import {GlobalNotificationsService} from '../../common/notifications.service';
 import {NotificationsComponent} from '../notifications/notifications.component';
 import {NotificationMessageComponent} from '../notificationMessage/notificationMessage.component';
 

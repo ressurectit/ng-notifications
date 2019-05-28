@@ -2,7 +2,9 @@ import {Component, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, Inj
 import {extend} from '@jscrpt/common';
 import {slideInOutTrigger} from '@anglr/animations';
 
-import {Notification, NotificationType, NotificationMessage, NotificationMessageCss, NotificationMessageOptions, NOTIFICATION_MESSAGE_OPTIONS} from '../../common';
+import {NotificationMessage, NotificationMessageCss, NotificationMessageOptions, NOTIFICATION_MESSAGE_OPTIONS} from '../../common/notifications.interface';
+import {NotificationType} from '../../common/notification.type';
+import {Notification} from '../../common/notification';
 
 /**
  * Default options for notification message component

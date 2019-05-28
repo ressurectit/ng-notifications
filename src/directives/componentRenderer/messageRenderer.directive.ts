@@ -2,7 +2,8 @@ import {ComponentRef, Directive, Input, OnChanges, SimpleChanges, ViewContainerR
 import {nameof} from '@jscrpt/common';
 import {Subscription} from 'rxjs';
 
-import {NotificationMessage, NotificationMessageOptions, Notification, NotificationsOptions, NOTIFICATION_MESSAGE_SERVICE, NotificationMessageService} from '../../common';
+import {NotificationMessage, NotificationMessageOptions, NotificationsOptions, NOTIFICATION_MESSAGE_SERVICE, NotificationMessageService} from '../../common/notifications.interface';
+import {Notification} from '../../common/notification';
 
 /**
 * Creates dynamically instance of component by its metadata

@@ -3,7 +3,9 @@ import {isPlatformBrowser} from '@angular/common';
 import {extend} from '@jscrpt/common';
 import {Subscription} from 'rxjs';
 
-import {NotificationsOptions, Notification, LocalNotificationsService, NotificationMessageOptions, NOTIFICATIONS_OPTIONS} from '../../common';
+import {NotificationsOptions, NotificationMessageOptions, NOTIFICATIONS_OPTIONS} from '../../common/notifications.interface';
+import {Notification} from '../../common/notification';
+import {LocalNotificationsService} from '../../common/notifications.service';
 import {NotificationMessageComponent} from '../notificationMessage/notificationMessage.component';
 
 /**
@@ -136,7 +138,7 @@ export class NotificationsComponent implements OnDestroy
 
     /**
      * Adds notification item to list
-     * @param  {Notification} item Item to be added
+     * @param item Item to be added
      */
     public addItem(item: Notification)
     {
@@ -145,7 +147,7 @@ export class NotificationsComponent implements OnDestroy
 
     /**
      * Removes notification item from list
-     * @param  {number} item Item to be removed
+     * @param item Item to be removed
      */
     public removeItem(item: Notification)
     {

@@ -39,7 +39,7 @@
         "@angular/animations": ">=8.0.0",
         "rxjs": ">=6.5.0",
         "@jscrpt/common": ">=1.0.1",
-        "@anglr/animations": ">=6.0.0-beta"
+        "@anglr/animations": ">=6.0.0"
     },
     "devDependencies": {
         "@angular/core": "^8.0.0",
@@ -47,7 +47,7 @@
         "@angular/animations": "^8.0.0",
         "rxjs": "^6.5.0",
         "@jscrpt/common": "^1.0.1",
-        "@anglr/animations": "^6.0.0-beta",
+        "@anglr/animations": "^6.0.0",
         "@types/jasmine": "2.8.7",
         "@types/node": "10.1.2",
         "@angular/compiler-cli": "^8.0.0",

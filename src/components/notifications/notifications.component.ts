@@ -62,13 +62,13 @@ export class NotificationsComponent implements OnDestroy
      * Options used for notification message
      */
     @Input()
-    public set options(options: NotificationsOptions<any, NotificationMessageOptions<any>>)
-    {
-        this._options = extend(true, this._options, options);
-    }
     public get options(): NotificationsOptions<any, NotificationMessageOptions<any>>
     {
         return this._options;
+    }
+    public set options(options: NotificationsOptions<any, NotificationMessageOptions<any>>)
+    {
+        this._options = extend(true, this._options, options);
     }
 
     //######################### public properties - template bindings #########################
@@ -138,7 +138,7 @@ export class NotificationsComponent implements OnDestroy
 
     /**
      * Adds notification item to list
-     * @param item Item to be added
+     * @param item - Item to be added
      */
     public addItem(item: Notification)
     {
@@ -147,7 +147,7 @@ export class NotificationsComponent implements OnDestroy
 
     /**
      * Removes notification item from list
-     * @param item Item to be removed
+     * @param item - Item to be removed
      */
     public removeItem(item: Notification)
     {

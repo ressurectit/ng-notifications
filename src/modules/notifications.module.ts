@@ -13,8 +13,7 @@ import {MessageRendererDirective} from '../directives/componentRenderer/messageR
 {
     imports: [CommonModule],
     declarations: [NotificationMessageComponent, GlobalNotificationsComponent, NotificationsComponent, MessageRendererDirective],
-    exports: [GlobalNotificationsComponent, NotificationsComponent],
-    entryComponents: [NotificationMessageComponent]
+    exports: [GlobalNotificationsComponent, NotificationsComponent]
 })
 export class NotificationsModule
 {

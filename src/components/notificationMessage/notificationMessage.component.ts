@@ -27,8 +27,7 @@ const defaultOptions: NotificationMessageOptions<NotificationMessageCss> =
 @Component(
  {
     selector: "notification",
-    styles:
-    [`
+    styles: [`
         .clickable
         {
             cursor: pointer;
@@ -80,27 +79,27 @@ export class NotificationMessageComponent implements NotificationMessage<Notific
     /**
      * Represents notification that will be displayed
      */
+    public get item(): Notification
+    {
+        return this._item;
+    }
     public set item(item: Notification)
     {
         this.classObj[`${this._options.cssClasses.messageTypePrefix}${NotificationType[item.type]}`] = true;
         this._item = item;
     }
-    public get item(): Notification
-    {
-        return this._item;
-    }
 
     /**
      * Options used for notification message
      */
+    public get options(): NotificationMessageOptions<NotificationMessageCss>
+    {
+        return this._options;
+    }
     public set options(options: NotificationMessageOptions<NotificationMessageCss>)
     {
         this._options = extend(true, this._options, options);
         this._init();
-    }
-    public get options(): NotificationMessageOptions<NotificationMessageCss>
-    {
-        return this._options;
     }
 
     /**

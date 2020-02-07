@@ -130,7 +130,7 @@ export interface NotificationMessageService<TCssClasses, TOptions extends Notifi
 {
     /**
      * Gets component type used for displaying notification message
-     * @param type Type of notification that should be displayed
+     * @param type - Type of notification that should be displayed
      */
     getNotificationMessageComponent(type: NotificationType): Type<NotificationMessage<TCssClasses, TOptions>>;
 }

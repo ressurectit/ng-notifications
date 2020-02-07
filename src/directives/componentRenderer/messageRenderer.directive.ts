@@ -124,7 +124,7 @@ export class MessageRendererDirective implements OnChanges, OnDestroy
 
     /**
      * Called when notification was closed by user
-     * @param notification Notification that was closed
+     * @param notification - Notification that was closed
      */
     private _closedEmit = (notification: Notification) =>
     {

@@ -1,3 +1,6 @@
+[![npm version](https://badge.fury.io/js/%40anglr%2Fnotifications.svg)](https://badge.fury.io/js/%40anglr%2Fnotifications)
+[![Build status](https://ci.appveyor.com/api/projects/status/lvu50fvpiyqrenmf?svg=true)](https://ci.appveyor.com/project/kukjevov/ng-notifications)
+
 # Angular Notifications
 
 Angular module for displaying notifications.
@@ -14,7 +17,7 @@ Module contains components for displaying local and global notifications.
 
 To install latest version of this module you just run:
 
-```nocode
+```bash
 npm install "@ng2/notifications" --save
 ```
 

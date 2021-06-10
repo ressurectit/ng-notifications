@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 7.1.0 (2021-06-10)
+
+### Features
+
+- added new `LocalNotificationsProviderDirective` used for providing `LocalNotificationsService` to local `NotificationsComponent`
+
 ## Version 7.0.0
 
 - updated to latest stable *Angular* 9

@@ -5,6 +5,7 @@ import {GlobalNotificationsComponent} from '../components/globalNotifications/gl
 import {NotificationMessageComponent} from '../components/notificationMessage/notificationMessage.component';
 import {NotificationsComponent} from '../components/notifications/notifications.component';
 import {MessageRendererDirective} from '../directives/componentRenderer/messageRenderer.directive';
+import {LocalNotificationsProviderDirective} from '../directives/localNotificationsWithProvider/localNotificationsWithProvider.directive';
 
 /**
  * Module for notifications
@@ -12,8 +13,8 @@ import {MessageRendererDirective} from '../directives/componentRenderer/messageR
 @NgModule(
 {
     imports: [CommonModule],
-    declarations: [NotificationMessageComponent, GlobalNotificationsComponent, NotificationsComponent, MessageRendererDirective],
-    exports: [GlobalNotificationsComponent, NotificationsComponent]
+    declarations: [NotificationMessageComponent, GlobalNotificationsComponent, NotificationsComponent, LocalNotificationsProviderDirective, MessageRendererDirective],
+    exports: [GlobalNotificationsComponent, NotificationsComponent, LocalNotificationsProviderDirective]
 })
 export class NotificationsModule
 {

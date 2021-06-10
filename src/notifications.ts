@@ -6,4 +6,5 @@ export * from './components/globalNotifications/globalNotifications.component';
 export * from './components/notificationMessage/notificationMessage.component';
 export * from './components/notifications/notifications.component';
 export * from './directives/componentRenderer/messageRenderer.directive';
+export * from './directives/localNotificationsWithProvider/localNotificationsWithProvider.directive';
 export {NotificationsModule} from './modules/notifications.module';

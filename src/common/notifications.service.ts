@@ -1,114 +1,216 @@
-import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {FactoryProvider, Injectable, InjectionToken, ValueProvider} from '@angular/core';
+import {Notification, NOTIFICATIONS, Notifications, NotificationSeverity} from '@anglr/common';
+import {generateId, nameof} from '@jscrpt/common';
+import {Observable} from 'rxjs';
 
-import {Notification} from './notification';
-import {NotificationType} from './notification.type';
-
-/**
- * Notifications service used for creating notifications
- */
-export abstract class NotificationsService
-{
-    //######################### private fields #########################
-
-    /**
-     * Subjet used for emitting clear messages event 
-     */
-    private _clearSubject: Subject<void> = new Subject<void>();
-
-    /**
-     * Subject used for emittin notifying event 
-     */
-    private _notifying: Subject<Notification> = new Subject<Notification>();
-    
-    //######################### public properties - events #########################
-
-    /**
-     * Gets observable that is used for indication that messages are being cleared
-     */
-    public get clearingMessages(): Observable<void>
-    {
-        return this._clearSubject.asObservable();
-    }
-
-    /**
-     * Gets observable that is used for notifying user
-     */
-    public get notifying(): Observable<Notification>
-    {
-        return this._notifying.asObservable();
-    }
-
-    //######################### public methods #########################
-    
-    /**
-     * Displays success notification
-     * @param message - Message to be displayed
-     */
-    public success(message: string)
-    {
-        this._onNotify(new Notification(message, NotificationType.success));
-    }
-    
-    /**
-     * Displays error notification
-     * @param message - Message to be displayed
-     */
-    public error(message: string)
-    {
-        this._onNotify(new Notification(message, NotificationType.danger));
-    }
-    
-    /**
-     * Displays info notification
-     * @param message - Message to be displayed
-     */
-    public info(message: string)
-    {
-        this._onNotify(new Notification(message, NotificationType.info));
-    }
-    
-    /**
-     * Displays warning notification
-     * @param message - Message to be displayed
-     */
-    public warning(message: string)
-    {
-        this._onNotify(new Notification(message, NotificationType.warning));
-    }
-
-    /**
-     * Clears all displayed messages for current services
-     */
-    public clearMessages()
-    {
-        this._clearSubject.next();
-    }
-    
-    //######################### private methods #########################
-    
-    /**
-     * Used for invoking notifying event emitter
-     * @param notification - Notifications that should be displayed
-     */
-    private _onNotify(notification: Notification)
-    {
-        this._notifying.next(notification);
-    }
-}
+import {GlobalNotificationsProvider, LocalNotificationsProvider} from './notifications.interface';
 
 /**
- * Global notification service that is used for page global notifications
- */
-@Injectable({providedIn: 'root'})
-export class GlobalNotificationsService extends NotificationsService
-{
-}
-
-/**
- * Local notification service that should be used only within page notifications
+ * Base class for notifications services
  */
 @Injectable()
-export class LocalNotificationsService extends NotificationsService
+abstract class ɵNotificationsService implements Notifications
+{
+    //######################### properties #########################
+
+    /**
+     * @inheritdoc
+     */
+    public get notifications(): readonly Notification[]
+    {
+        throw new Error('Method not implemented.');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public get notificationsChange(): Observable<void>
+    {
+        throw new Error('Method not implemented.');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public get destroy(): Observable<void>
+    {
+        throw new Error('Method not implemented.');
+    }
+
+    //######################### methods #########################
+    
+    /**
+     * @inheritdoc
+     */
+    public message(_message: string, _severity: NotificationSeverity): Notifications
+    {
+        throw new Error('Method not implemented.');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public default(_message: string): Notifications
+    {
+        throw new Error('Method not implemented.');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public success(_message: string): Notifications
+    {
+        throw new Error('Method not implemented.');
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public error(_message: string): Notifications
+    {
+        throw new Error('Method not implemented.');
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public info(_message: string): Notifications
+    {
+        throw new Error('Method not implemented.');
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public warning(_message: string): Notifications
+    {
+        throw new Error('Method not implemented.');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public clearNotifications(): Notifications
+    {
+        throw new Error('Method not implemented.');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public remove(_notification: Notification): Notifications
+    {
+        throw new Error('Method not implemented.');
+    }
+
+    /**
+     * Gets scoped instance of `Notifications`
+     * @inheritdoc
+     */
+    public getScope(_scopeName: string): Notifications
+    {
+        throw new Error('Method not implemented.');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public ngOnDestroy(): void
+    {
+        throw new Error('Method not implemented.');
+    }
+}
+
+/**
+ * Global notification service that is used for global notifications
+ */
+@Injectable()
+export abstract class GlobalNotificationsService extends ɵNotificationsService implements Notifications
 {
 }
+
+/**
+ * Local notification service that is used for local notifications
+ */
+@Injectable()
+export abstract class LocalNotificationsService extends ɵNotificationsService implements Notifications
+{
+}
+
+/**
+ * Global notifications provider
+ */
+const GLOBAL_NOTIFICATIONS: GlobalNotificationsProvider =
+{
+    provide: GlobalNotificationsService,
+    useExisting: NOTIFICATIONS
+};
+
+Object.defineProperty(GLOBAL_NOTIFICATIONS, nameof<GlobalNotificationsProvider>('named'),
+{
+    get()
+    {
+        return (name: string): FactoryProvider =>
+        {
+            return {
+                provide: GlobalNotificationsService,
+                useFactory: (notifications: Notifications) =>
+                {
+                    return notifications.getScope(name);
+                },
+                deps: [NOTIFICATIONS]
+            };
+        };
+    }
+});
+
+/**
+ * Local notifications scope name
+ */
+export const LOCAL_NOTIFICATIONS_SCOPE_NAME = 'local';
+
+/**
+ * Injection token for injecting local notifications scope name
+ */
+export const LOCAL_NOTIFICATIONS_SCOPE: InjectionToken<string> = new InjectionToken<string>('LOCAL_NOTIFICATIONS_SCOPE');
+
+/**
+ * Local notifications provider
+ */
+const LOCAL_NOTIFICATIONS: LocalNotificationsProvider =
+{
+    provide: LocalNotificationsService,
+    useFactory: (notifications: Notifications) =>
+    {
+        return notifications.getScope(LOCAL_NOTIFICATIONS_SCOPE_NAME);
+    },
+    deps: [NOTIFICATIONS]
+};
+
+Object.defineProperty(LOCAL_NOTIFICATIONS, nameof<LocalNotificationsProvider>('named'),
+{
+    get()
+    {
+        return (name: string = generateId(6)): [FactoryProvider, ValueProvider] =>
+        {
+            const scopeName = `${LOCAL_NOTIFICATIONS_SCOPE_NAME}-${name}`;
+
+            return [
+                {
+                    provide: LocalNotificationsService,
+                    useFactory: (notifications: Notifications) =>
+                    {
+                        return notifications.getScope(scopeName);
+                    },
+                    deps: [NOTIFICATIONS]
+                },
+                {
+                    provide: LOCAL_NOTIFICATIONS_SCOPE,
+                    useValue: scopeName
+                }
+            ];
+        };
+    }
+});
+
+export {GLOBAL_NOTIFICATIONS, LOCAL_NOTIFICATIONS};

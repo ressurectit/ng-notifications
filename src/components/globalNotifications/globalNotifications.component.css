@@ -1,0 +1,7 @@
+.notifications.global
+{
+    position: fixed;
+    right: 15px;
+    top: 20px;
+    z-index: 21312;
+}

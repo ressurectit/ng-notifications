@@ -1,3 +1,3 @@
 <div class="{{options?.cssClasses?.messageDiv}}" (click)="close()" [ngClass]="classObj">
-    {{item?.message}}
+    {{item?.message | trimText: options?.maxLength}}
 </div>

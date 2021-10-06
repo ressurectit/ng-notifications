@@ -1,6 +1,6 @@
 import {Directive} from '@angular/core';
 
-import {LocalNotificationsService} from '../../common/notifications.service';
+import {LOCAL_NOTIFICATIONS} from '../../common/notifications.service';
 
 /**
  * Directive used for providing local notifications service to local notifications
@@ -8,7 +8,10 @@ import {LocalNotificationsService} from '../../common/notifications.service';
 @Directive(
 {
     selector: 'notifications[withProvider]',
-    providers: [LocalNotificationsService]
+    providers:
+    [
+        LOCAL_NOTIFICATIONS.named(null)
+    ]
 })
 export class LocalNotificationsProviderDirective
 {

@@ -1,5 +1,41 @@
 # Changelog
 
+## Version 8.0.0 (2021-10-06)
+
+### Features
+
+- completely rework notifications system, now it is using `@anglr/common` `Notifications`
+- added new `NamedNotificationsProviderFactory` as factory for creating named `GlobalNotificationsProvider` or `LocalNotificationsProvider`
+- added new `GlobalNotificationsProvider` as global notifications provider that allows creating global notifications
+- added new `LocalNotificationsProvider` as local notifications provider that allows creating local notifications
+- added new `GLOBAL_NOTIFICATIONS` as instance of `GlobalNotificationsProvider`
+- added new `LOCAL_NOTIFICATIONS` as instance of `LocalNotificationsProvider`
+- added new `LOCAL_NOTIFICATIONS_SCOPE_NAME` as local notifications scope name
+- added new `LOCAL_NOTIFICATIONS_SCOPE` as injection token for injecting local notifications scope name
+- `NotificationsComponent` reworked to use new `@anglr/common` `Notifications` API
+- `LocalNotificationsProviderDirective` reworked to use new `@anglr/common` `Notifications` API
+- added new `MessageOptionsNotificationsDirective` as directive used for providing message options directly to notifications
+- added new `TrimTextPipe` as pipe that trims provided text by provided length
+- added new `NotificationsCoreModule` as module for core notifications components, directives, pipes
+- added new `NotificationsGlobalModule` as module for global notifications
+    - `forRoot` that allows injecting `GlobalNotificationsService` as named or root scope
+- added new `NotificationsLocalModule` as module for local notifications
+
+### BREAKING CHANGES
+
+- minimal supported version of *Angular* is `12.0.0`
+- minimal supported version of `@jscrpt/common` is `1.2.0`
+- new dependency `@anglr/common` minimal supported version is `8.0.0-beta`
+- removed `Notification`, now replaced with `@anglr/common` `Notification`
+- removed `NotificationType`, now replaced with `@anglr/common` `NotificationSeverity`
+- removed `NotificationsModule`, now replaced with 2 modules `NotificationsGlobalModule` or `NotificationsLocalModule`
+- all generic types are made optional
+- removed `NotificationsOptions.timeout`, this is now part of `@anglr/common` `Notifications` system
+- moved `NotificationsOptions.maxLength` into `NotificationMessageOptions.maxLength`
+- removed `NotificationsService` now using `@anglr/common` `Notifications`
+- `GlobalNotificationsService` not self-provided as `'root'`
+- `GlobalNotificationsService` and `LocalNotificationsService` used only as injection tokens for getting `Notifications` instance
+
 ## Version 7.1.0 (2021-06-10)
 
 ### Features
@@ -97,7 +133,7 @@
 
 ## Version 2.0.2
 
-- fixed notifications animations 
+- fixed notifications animations
 
 ## Version 2.0.1
 

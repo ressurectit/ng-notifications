@@ -1,12 +1,10 @@
-import {InjectionToken, EventEmitter, Type} from "@angular/core";
-
-import {Notification} from './notification';
-import {NotificationType} from "./notification.type";
+import {InjectionToken, EventEmitter, Type, ExistingProvider, FactoryProvider, ValueProvider} from '@angular/core';
+import {NotificationSeverity, Notification} from '@anglr/common';
 
 /**
  * Token for injecting options for notifications components
  */
-export const NOTIFICATIONS_OPTIONS: InjectionToken<NotificationsOptions<any, any>> = new InjectionToken<NotificationsOptions<any, any>>('NOTIFICATIONS_OPTIONS');
+export const NOTIFICATIONS_OPTIONS: InjectionToken<NotificationsOptions> = new InjectionToken<NotificationsOptions>('NOTIFICATIONS_OPTIONS');
 
 /**
  * Css classes for notifications component
@@ -22,18 +20,8 @@ export interface NotificationsOptionsCss
 /**
  * Options for notifications component
  */
-export interface NotificationsOptions<TMessageCssClasses, TOptions extends NotificationMessageOptions<TMessageCssClasses>>
+export interface NotificationsOptions<TMessageCssClasses = any, TOptions extends NotificationMessageOptions<TMessageCssClasses> = NotificationMessageOptions<TMessageCssClasses>>
 {
-    /**
-     * Timeout in ms, after which will be notification closed, if set to 0, message will stay
-     */
-    timeout?: number;
-    
-    /**
-     * Maximal allowed length of notification message
-     */
-    maxLength?: number;
-
     /**
      * Options passed to each message
      */
@@ -45,15 +33,16 @@ export interface NotificationsOptions<TMessageCssClasses, TOptions extends Notif
     cssClasses?: NotificationsOptionsCss;
 
     /**
-     * Gets type that represents component used for displaying notification message
+     * Gets component type used for displaying notification message
+     * @param severity - Notification severity that should be displayed
      */
-    getNotificationMessageComponent?: (type: NotificationType) => Type<NotificationMessage<TMessageCssClasses, TOptions>>;
+    getNotificationMessageComponent?: (severity: NotificationSeverity) => Type<NotificationMessage<TMessageCssClasses, TOptions>>;
 }
 
 /**
  * Token for injecting options for notification message component
  */
-export const NOTIFICATION_MESSAGE_OPTIONS: InjectionToken<NotificationMessageOptions<any>> = new InjectionToken<NotificationMessageOptions<any>>('NOTIFICATION_MESSAGE_OPTIONS');
+export const NOTIFICATION_MESSAGE_OPTIONS: InjectionToken<NotificationMessageOptions> = new InjectionToken<NotificationMessageOptions>('NOTIFICATION_MESSAGE_OPTIONS');
 
 /**
  * Css classes for default notification message
@@ -79,12 +68,17 @@ export interface NotificationMessageCss
 /**
  * Options for notification message
  */
-export interface NotificationMessageOptions<TCssClasses>
+export interface NotificationMessageOptions<TCssClasses = any>
 {
     /**
      * Indication whether is message closed by clicking on it
      */
     clickToClose?: boolean;
+
+    /**
+     * Maximal allowed length of notification message
+     */
+    maxLength?: number;
 
     /**
      * Css classes used within notification message component
@@ -95,7 +89,7 @@ export interface NotificationMessageOptions<TCssClasses>
 /**
  * Component used for displaying notification message must implement this interface
  */
-export interface NotificationMessage<TCssClasses, TOptions extends NotificationMessageOptions<TCssClasses>>
+export interface NotificationMessage<TCssClasses = any, TOptions extends NotificationMessageOptions<TCssClasses> = NotificationMessageOptions<TCssClasses>>
 {
     /**
      * Represents notification that will be displayed
@@ -121,16 +115,50 @@ export interface NotificationMessage<TCssClasses, TOptions extends NotificationM
 /**
  * Token for injecting service that can be used for obtaining type of component for notification message
  */
-export const NOTIFICATION_MESSAGE_SERVICE: InjectionToken<NotificationMessageService<any, NotificationMessageOptions<any>>> = new InjectionToken<NotificationMessageService<any, NotificationMessageOptions<any>>>('NOTIFICATION_MESSAGE_SERVICE');
+export const NOTIFICATION_MESSAGE_SERVICE: InjectionToken<NotificationMessageService> = new InjectionToken<NotificationMessageService>('NOTIFICATION_MESSAGE_SERVICE');
 
 /**
  * Represents service that can be used for obtaining notification message component type
  */
-export interface NotificationMessageService<TCssClasses, TOptions extends NotificationMessageOptions<TCssClasses>>
+export interface NotificationMessageService<TMessageCssClasses = any, TOptions extends NotificationMessageOptions<TMessageCssClasses> = NotificationMessageOptions<TMessageCssClasses>>
 {
     /**
      * Gets component type used for displaying notification message
-     * @param type - Type of notification that should be displayed
+     * @param severity - Notification severity that should be displayed
      */
-    getNotificationMessageComponent(type: NotificationType): Type<NotificationMessage<TCssClasses, TOptions>>;
+    getNotificationMessageComponent(severity: NotificationSeverity): Type<NotificationMessage<TMessageCssClasses, TOptions>>;
+}
+
+/**
+ * Factory for creating named `GlobalNotificationsProvider` or `LocalNotificationsProvider`
+ */
+export interface NamedNotificationsProviderFactory
+{
+    /**
+     * Creates named `FactoryProvider` for global or local notifications
+     * @param name - Name of scope for notifications provider
+     */
+    (name: string): FactoryProvider|[FactoryProvider, ValueProvider];
+}
+
+/**
+ * Global notifications provider that allows creating global notifications
+ */
+export interface GlobalNotificationsProvider extends ExistingProvider
+{
+    /**
+     * Gets named global notifications provider
+     */
+    named?: NamedNotificationsProviderFactory;
+}
+
+/**
+ * Local notifications provider that allows creating local notifications
+ */
+export interface LocalNotificationsProvider extends FactoryProvider
+{
+    /**
+     * Gets named local notifications provider
+     */
+    named?: NamedNotificationsProviderFactory;
 }

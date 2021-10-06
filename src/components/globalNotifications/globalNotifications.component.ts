@@ -1,7 +1,7 @@
 import {Component, Optional, PLATFORM_ID, ChangeDetectorRef, Inject, ChangeDetectionStrategy} from '@angular/core';
 import {extend} from '@jscrpt/common';
 
-import {NotificationsOptions, NotificationMessageOptions, NOTIFICATIONS_OPTIONS} from '../../common/notifications.interface';
+import {NotificationsOptions, NOTIFICATIONS_OPTIONS} from '../../common/notifications.interface';
 import {GlobalNotificationsService} from '../../common/notifications.service';
 import {NotificationsComponent} from '../notifications/notifications.component';
 import {NotificationMessageComponent} from '../notificationMessage/notificationMessage.component';
@@ -10,14 +10,12 @@ import {NotificationMessageComponent} from '../notificationMessage/notificationM
  * Default options for notifications component
  * @internal
  */
-const defaultOptions: NotificationsOptions<any, NotificationMessageOptions<any>> =
+const defaultOptions: NotificationsOptions =
 {
     cssClasses:
     {
         rootDiv: 'notifications global'
     },
-    maxLength: 500,
-    timeout: 10000,
     getNotificationMessageComponent: () => NotificationMessageComponent
 };
 
@@ -26,17 +24,8 @@ const defaultOptions: NotificationsOptions<any, NotificationMessageOptions<any>>
  */
 @Component(
 {
-    selector: "global-notifications",
-    styles: 
-    [`
-        .notifications.global
-        {
-            position: fixed;
-            right: 15px;
-            top: 20px;
-            z-index: 21312;
-        }
-    `],
+    selector: 'global-notifications',
+    styleUrls: ['globalNotifications.component.css'],
     templateUrl: 'globalNotifications.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -46,7 +35,7 @@ export class GlobalNotificationsComponent extends NotificationsComponent
     constructor(service: GlobalNotificationsService,
                 changeDetector: ChangeDetectorRef,
                 @Inject(PLATFORM_ID) platformId: Object,
-                @Inject(NOTIFICATIONS_OPTIONS) @Optional() options?: NotificationsOptions<any, NotificationMessageOptions<any>>)
+                @Inject(NOTIFICATIONS_OPTIONS) @Optional() options?: NotificationsOptions)
     {
         super(service, changeDetector, platformId, options);
 

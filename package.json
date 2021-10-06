@@ -73,7 +73,7 @@
         "@typescript-eslint/eslint-plugin": "4.33.0",
         "@typescript-eslint/parser": "4.33.0",
         "eslint-plugin-ressurectit": "0.1.0",
-        "tsickle": "0.43.0",
+        "tsickle": "0.38.0",
         "rimraf": "3.0.2",
         "copyfiles": "2.4.1",
         "replace-in-file": "6.2.0",

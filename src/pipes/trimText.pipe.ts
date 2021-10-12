@@ -14,7 +14,7 @@ export class TrimTextPipe implements PipeTransform
      */
     public transform(value: string, length?: number): string 
     {
-        if(isBlank(length) || value?.length < length)
+        if(isBlank(value) || isBlank(length) || value?.length < length)
         {
             return value;
         }

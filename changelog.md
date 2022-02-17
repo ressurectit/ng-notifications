@@ -25,7 +25,7 @@
 
 - minimal supported version of *Angular* is `12.0.0`
 - minimal supported version of `@jscrpt/common` is `1.2.0`
-- new dependency `@anglr/common` minimal supported version is `8.0.0-beta`
+- new dependency `@anglr/common` minimal supported version is `9.0.0`
 - removed `Notification`, now replaced with `@anglr/common` `Notification`
 - removed `NotificationType`, now replaced with `@anglr/common` `NotificationSeverity`
 - removed `NotificationsModule`, now replaced with 2 modules `NotificationsGlobalModule` or `NotificationsLocalModule`

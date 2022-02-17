@@ -51,18 +51,18 @@
         "@angular/common": ">=12.0.0",
         "@angular/animations": ">=12.0.0",
         "rxjs": ">=6.5.0",
-        "@jscrpt/common": ">=1.2.0-beta",
+        "@jscrpt/common": ">=1.2.0",
         "@anglr/animations": ">=7.0.0",
-        "@anglr/common": ">=8.0.0-beta"
+        "@anglr/common": ">=9.0.0"
     },
     "devDependencies": {
         "@angular/core": "^12.0.0",
         "@angular/common": "^12.0.0",
         "@angular/animations": "^12.0.0",
         "rxjs": "^6.5.0",
-        "@jscrpt/common": "^1.2.0-beta.20201113143549",
+        "@jscrpt/common": "^1.2.0",
         "@anglr/animations": "^7.0.0",
-        "@anglr/common": "^8.0.0-beta.20211006063423",
+        "@anglr/common": "^9.0.0",
         "@types/node": "12.12.6",
         "@angular/compiler-cli": "^12.0.0",
         "@angular/compiler": "^12.0.0",

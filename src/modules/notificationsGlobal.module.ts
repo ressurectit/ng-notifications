@@ -4,7 +4,7 @@ import {isPresent} from '@jscrpt/common';
 
 import {NotificationsCoreModule} from './notificationsCore.module';
 import {GlobalNotificationsComponent} from '../components/globalNotifications/globalNotifications.component';
-import {GLOBAL_NOTIFICATIONS} from '../notifications';
+import {GLOBAL_NOTIFICATIONS} from '../common/notifications.service';
 
 /**
  * Module for global notifications

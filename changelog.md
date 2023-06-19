@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 10.0.0 (2023-06-19)
+
+### BREAKING CHANGES
+
+- minimal supported version of `@angular` is `16.0.3`
+- minimal supported version of `@rxjs` is `7.5.7`
+- minimal supported version of `@jscrpt/common` is `3.4.0`
+- minimal supported version of `@anglr/common` is `16.0.0`
+- dropped support of `NodeJs` lower than `16.14`
+
 ## Version 9.0.0 (2022-06-30)
 
 ### BREAKING CHANGES

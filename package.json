@@ -5,7 +5,7 @@
     "type": "module",
     "sideEffects": false,
     "scripts": {
-        "build": "ngc --declaration --declarationDir . --declarationMap && ngc -t es2015 --outDir es2015",
+        "build": "ngc --declaration --declarationDir . --declarationMap",
         "dts:rollup": "npm run api -- api-extractor.json",
         "api": "api-extractor run --local --verbose -c",
         "clean": "rimraf */temp temp es2015 es2020 **/tsdoc-metadata.json src/**/*.d.ts src/**/*.d.ts.map */src/**/*.d.ts */src/**/*.d.ts.map ./*.d.ts ./*.d.ts.map */*.d.ts",
@@ -31,7 +31,7 @@
         "doc:md:notifications": "api-documenter markdown -i temp -o docs/content/api/ng-notifications"
     },
     "engines": {
-        "node": "^14.15.0 || >=16.10.0"
+        "node": "^16.14.0 || >=18.10.0"
     },
     "repository": {
         "type": "git",
@@ -49,57 +49,56 @@
     },
     "homepage": "https://github.com/ressurectit/ng-notifications",
     "peerDependencies": {
-        "@angular/core": ">=14.0.0",
-        "@angular/common": ">=14.0.0",
-        "@angular/animations": ">=14.0.0",
-        "rxjs": ">=6.6.7",
-        "@jscrpt/common": ">=2.2.0",
+        "@angular/core": ">=16.0.3",
+        "@angular/common": ">=16.0.3",
+        "@angular/animations": ">=16.0.3",
+        "rxjs": ">=7.5.7",
+        "@jscrpt/common": ">=3.4.0",
         "@anglr/animations": ">=9.1.0",
-        "@anglr/common": ">=11.2.0",
-        "tslib": "^2.3.1"
+        "@anglr/common": ">=16.0.0",
+        "tslib": "^2.5.3"
     },
     "devDependencies": {
-        "@angular/core": "^14.0.0",
-        "@angular/common": "^14.0.0",
-        "@angular/animations": "^14.0.0",
-        "rxjs": "^6.6.7",
-        "@jscrpt/common": "^2.2.0",
+        "@angular/core": "^16.0.3",
+        "@angular/common": "^16.0.3",
+        "@angular/animations": "^16.0.3",
+        "rxjs": "^7.5.7",
+        "@jscrpt/common": "^3.4.0",
         "@anglr/animations": "^9.1.0",
-        "@anglr/common": "^11.2.0",
-        "@types/node": "^14.14.31",
-        "@angular/compiler-cli": "^14.0.0",
-        "@angular/compiler": "^14.0.0",
-        "@angular/language-service": "^14.0.0",
+        "@anglr/common": "^16.0.0",
+        "@types/node": "^18.15.3",
+        "@angular/compiler-cli": "^16.0.3",
+        "@angular/compiler": "^16.0.3",
+        "@angular/language-service": "^16.0.3",
         "@microsoft/api-extractor": "7.19.2",
         "@microsoft/api-documenter": "7.13.77",
-        "tslib": "2.3.1",
+        "tslib": "2.5.3",
         "eslint": "7.32.0",
         "@typescript-eslint/eslint-plugin": "4.33.0",
         "@typescript-eslint/parser": "4.33.0",
         "eslint-plugin-ressurectit": "0.1.0",
         "rimraf": "3.0.2",
         "copyfiles": "2.4.1",
-        "replace-in-file": "6.3.2",
+        "replace-in-file": "7.0.1",
         "path-exists-cli": "2.0.0",
-        "typescript": "4.7.2",
+        "typescript": "5.0.4",
         "npm-git-version": "2.0.0"
     },
-    "esm2020": "./es2020/src/index.js",
-    "es2020": "./es2020/src/index.js",
-    "es2015": "./es2015/src/index.js",
-    "module": "./es2015/src/index.js",
+    "module": "./es2022/src/index.js",
     "typings": "./src/index.d.ts",
     "exports": {
         "./package.json": {
             "default": "./package.json"
         },
+        "./typings/*": {
+            "types": "./typings/*/index.d.ts"
+        },
         ".": {
             "types": "./src/index.d.ts",
-            "esm2020": "./es2020/src/index.js",
-            "es2020": "./es2020/src/index.js",
-            "es2015": "./es2015/src/index.js",
-            "node": "./es2015/src/index.js",
-            "default": "./es2020/src/index.js"
+            "esm2022": "./es2022/src/index.js",
+            "es2022": "./es2022/src/index.js",
+            "node": "./es2022/src/index.js",
+            "default": "./es2022/src/index.js"
         }
     }
 }

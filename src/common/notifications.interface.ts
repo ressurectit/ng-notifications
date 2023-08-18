@@ -138,8 +138,9 @@ export interface NamedNotificationsProviderFactory
     /**
      * Creates named `FactoryProvider` for global or local notifications
      * @param name - Name of scope for notifications provider
+     * @param customNotificationsToken - Optional type or token that should be provided for custom notifications
      */
-    (name: string): FactoryProvider|[FactoryProvider, ValueProvider];
+    (name: string, customNotificationsToken?: Function | Type<any> | InjectionToken<unknown>): FactoryProvider|[FactoryProvider, ValueProvider];
 }
 
 /**

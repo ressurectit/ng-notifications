@@ -4,6 +4,8 @@
 
 ### Features
 
+- new `provideGlobalNotifications` function, that provides global notifications service
+- new `provideLocalNotifications` function, that provides local notifications service
 - updated `NotificationMessageComponent` component
     - now implements latest version of `Notifications`
     - now allows localizing message
@@ -11,6 +13,9 @@
     - new **properties**
         - `name` name of scope, if not specified non scoped will be used
     - new constructor `Attribute` parameter `withProvider` that represents name of scope, its optional
+- updated `NamedNotificationsProviderFactory` interface
+    - new `customNotificationsToken` optional parameter, that is type or token that should be provided for custom notifications
+    - upgraded both its implementations `LOCAL_NOTIFICATIONS.named`, `GLOBAL_NOTIFICATIONS.named`
 
 ### BREAKING CHANGES
 

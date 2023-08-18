@@ -1,4 +1,4 @@
-import {FactoryProvider, Injectable, InjectionToken, ValueProvider} from '@angular/core';
+import {FactoryProvider, Injectable, InjectionToken, Type, ValueProvider} from '@angular/core';
 import {Notification, NOTIFICATIONS, Notifications, NotificationSeverity} from '@anglr/common';
 import {generateId, nameof} from '@jscrpt/common';
 import {Observable} from 'rxjs';
@@ -155,10 +155,10 @@ Object.defineProperty(GLOBAL_NOTIFICATIONS_DEFINITION, nameof<GlobalNotification
 {
     get()
     {
-        return (name: string): FactoryProvider =>
+        return (name: string, customNotificationsToken?: Function | Type<any> | InjectionToken<unknown>): FactoryProvider =>
         {
             return {
-                provide: GlobalNotificationsService,
+                provide: customNotificationsToken ?? GlobalNotificationsService,
                 useFactory: (notifications: Notifications) =>
                 {
                     return notifications.getScope(name);
@@ -201,13 +201,13 @@ Object.defineProperty(LOCAL_NOTIFICATIONS_DEFINITION, nameof<LocalNotificationsP
 {
     get()
     {
-        return (name: string = generateId(6)): [FactoryProvider, ValueProvider] =>
+        return (name: string = generateId(6), customNotificationsToken?: Function | Type<any> | InjectionToken<unknown>): [FactoryProvider, ValueProvider] =>
         {
             const scopeName = `${LOCAL_NOTIFICATIONS_SCOPE_NAME}-${name}`;
 
             return [
                 {
-                    provide: LocalNotificationsService,
+                    provide: customNotificationsToken ?? LocalNotificationsService,
                     useFactory: (notifications: Notifications) =>
                     {
                         return notifications.getScope(scopeName);

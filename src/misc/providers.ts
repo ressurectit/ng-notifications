@@ -8,7 +8,7 @@ import {GLOBAL_NOTIFICATIONS, LOCAL_NOTIFICATIONS} from '../common/notifications
  * @param name - Name for global notifications scope
  * @param customNotificationsToken - Optional type or token that should be provided for custom notifications
  */
-export function provideGlobalNotifications(name?: string, customNotificationsToken?: Function | Type<any> | InjectionToken<unknown>): EnvironmentProviders
+export function provideGlobalNotifications(name?: string, customNotificationsToken?: Function | Type<any> | InjectionToken<unknown> | string): EnvironmentProviders
 {
     if(isPresent(name))
     {
@@ -29,7 +29,7 @@ export function provideGlobalNotifications(name?: string, customNotificationsTok
  * @param name - Name for local notifications scope
  * @param customNotificationsToken - Optional type or token that should be provided for custom notifications
  */
-export function provideLocalNotifications(name?: string, customNotificationsToken?: Function | Type<any> | InjectionToken<unknown>): Provider[]
+export function provideLocalNotifications(name?: string, customNotificationsToken?: Function | Type<any> | InjectionToken<unknown> | string): Provider[]
 {
     if(isPresent(name))
     {

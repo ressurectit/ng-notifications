@@ -155,7 +155,7 @@ Object.defineProperty(GLOBAL_NOTIFICATIONS_DEFINITION, nameof<GlobalNotification
 {
     get()
     {
-        return (name: string, customNotificationsToken?: Function | Type<any> | InjectionToken<unknown>): FactoryProvider =>
+        return (name: string, customNotificationsToken?: Function | Type<any> | InjectionToken<unknown> | string): FactoryProvider =>
         {
             return {
                 provide: customNotificationsToken ?? GlobalNotificationsService,
@@ -201,7 +201,7 @@ Object.defineProperty(LOCAL_NOTIFICATIONS_DEFINITION, nameof<LocalNotificationsP
 {
     get()
     {
-        return (name: string = generateId(6), customNotificationsToken?: Function | Type<any> | InjectionToken<unknown>): [FactoryProvider, ValueProvider] =>
+        return (name: string = generateId(6), customNotificationsToken?: Function | Type<any> | InjectionToken<unknown> | string): [FactoryProvider, ValueProvider] =>
         {
             const scopeName = `${LOCAL_NOTIFICATIONS_SCOPE_NAME}-${name}`;
 

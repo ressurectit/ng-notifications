@@ -20,7 +20,7 @@ export interface NotificationsOptionsCss
 /**
  * Options for notifications component
  */
-export interface NotificationsOptions<TMessageCssClasses = any, TOptions extends NotificationMessageOptions<TMessageCssClasses> = NotificationMessageOptions<TMessageCssClasses>>
+export interface NotificationsOptions<TMessageCssClasses = unknown, TOptions extends NotificationMessageOptions<TMessageCssClasses> = NotificationMessageOptions<TMessageCssClasses>>
 {
     /**
      * Options passed to each message
@@ -30,13 +30,13 @@ export interface NotificationsOptions<TMessageCssClasses = any, TOptions extends
     /**
      * Css classes used within notifications component
      */
-    cssClasses?: NotificationsOptionsCss;
+    cssClasses: NotificationsOptionsCss;
 
     /**
      * Gets component type used for displaying notification message
      * @param severity - Notification severity that should be displayed
      */
-    getNotificationMessageComponent?: (severity: NotificationSeverity) => Type<NotificationMessage<TMessageCssClasses, TOptions>>;
+    getNotificationMessageComponent: (severity: NotificationSeverity) => Type<NotificationMessage<TMessageCssClasses, TOptions>>;
 }
 
 /**
@@ -68,28 +68,28 @@ export interface NotificationMessageCss
 /**
  * Options for notification message
  */
-export interface NotificationMessageOptions<TCssClasses = any>
+export interface NotificationMessageOptions<TCssClasses = unknown>
 {
     /**
      * Indication whether is message closed by clicking on it
      */
-    clickToClose?: boolean;
+    clickToClose: boolean;
 
     /**
      * Maximal allowed length of notification message
      */
-    maxLength?: number;
+    maxLength: number;
 
     /**
      * Css classes used within notification message component
      */
-    cssClasses?: TCssClasses;
+    cssClasses: TCssClasses;
 }
 
 /**
  * Component used for displaying notification message must implement this interface
  */
-export interface NotificationMessage<TCssClasses = any, TOptions extends NotificationMessageOptions<TCssClasses> = NotificationMessageOptions<TCssClasses>>
+export interface NotificationMessage<TCssClasses = unknown, TOptions extends NotificationMessageOptions<TCssClasses> = NotificationMessageOptions<TCssClasses>>
 {
     /**
      * Represents notification that will be displayed
@@ -99,7 +99,8 @@ export interface NotificationMessage<TCssClasses = any, TOptions extends Notific
     /**
      * Options used for notification message
      */
-    options: TOptions;
+    get options(): TOptions;
+    set options(value: Partial<TOptions>);
 
     /**
      * Occurs when notification is closed by user
@@ -120,7 +121,7 @@ export const NOTIFICATION_MESSAGE_SERVICE: InjectionToken<NotificationMessageSer
 /**
  * Represents service that can be used for obtaining notification message component type
  */
-export interface NotificationMessageService<TMessageCssClasses = any, TOptions extends NotificationMessageOptions<TMessageCssClasses> = NotificationMessageOptions<TMessageCssClasses>>
+export interface NotificationMessageService<TMessageCssClasses = unknown, TOptions extends NotificationMessageOptions<TMessageCssClasses> = NotificationMessageOptions<TMessageCssClasses>>
 {
     /**
      * Gets component type used for displaying notification message
@@ -149,7 +150,7 @@ export interface GlobalNotificationsProvider extends ExistingProvider
     /**
      * Gets named global notifications provider
      */
-    named?: NamedNotificationsProviderFactory;
+    named: NamedNotificationsProviderFactory;
 }
 
 /**
@@ -160,5 +161,5 @@ export interface LocalNotificationsProvider extends FactoryProvider
     /**
      * Gets named local notifications provider
      */
-    named?: NamedNotificationsProviderFactory;
+    named: NamedNotificationsProviderFactory;
 }

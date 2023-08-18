@@ -42,7 +42,7 @@ abstract class ɵNotificationsService implements Notifications
     /**
      * @inheritdoc
      */
-    public message(_message: string, _severity: NotificationSeverity): Notifications
+    public message(_message: string, _severity: NotificationSeverity, _parameter?: Record<string, unknown>): Notifications
     {
         throw new Error('Method not implemented.');
     }
@@ -50,7 +50,7 @@ abstract class ɵNotificationsService implements Notifications
     /**
      * @inheritdoc
      */
-    public default(_message: string): Notifications
+    public default(_message: string, _parameter?: Record<string, unknown>): Notifications
     {
         throw new Error('Method not implemented.');
     }
@@ -58,7 +58,7 @@ abstract class ɵNotificationsService implements Notifications
     /**
      * @inheritdoc
      */
-    public success(_message: string): Notifications
+    public success(_message: string, _parameter?: Record<string, unknown>): Notifications
     {
         throw new Error('Method not implemented.');
     }
@@ -66,7 +66,7 @@ abstract class ɵNotificationsService implements Notifications
     /**
      * @inheritdoc
      */
-    public error(_message: string): Notifications
+    public error(_message: string, _parameter?: Record<string, unknown>): Notifications
     {
         throw new Error('Method not implemented.');
     }
@@ -74,7 +74,7 @@ abstract class ɵNotificationsService implements Notifications
     /**
      * @inheritdoc
      */
-    public info(_message: string): Notifications
+    public info(_message: string, _parameter?: Record<string, unknown>): Notifications
     {
         throw new Error('Method not implemented.');
     }
@@ -82,7 +82,7 @@ abstract class ɵNotificationsService implements Notifications
     /**
      * @inheritdoc
      */
-    public warning(_message: string): Notifications
+    public warning(_message: string, _parameter?: Record<string, unknown>): Notifications
     {
         throw new Error('Method not implemented.');
     }
@@ -138,15 +138,20 @@ export abstract class LocalNotificationsService extends ɵNotificationsService i
 }
 
 /**
- * Global notifications provider
+ * Global notifications provider definition
  */
-const GLOBAL_NOTIFICATIONS: GlobalNotificationsProvider =
+const GLOBAL_NOTIFICATIONS_DEFINITION: Partial<GlobalNotificationsProvider> =
 {
     provide: GlobalNotificationsService,
     useExisting: NOTIFICATIONS
 };
 
-Object.defineProperty(GLOBAL_NOTIFICATIONS, nameof<GlobalNotificationsProvider>('named'),
+/**
+ * Global notifications provider
+ */
+const GLOBAL_NOTIFICATIONS = GLOBAL_NOTIFICATIONS_DEFINITION as GlobalNotificationsProvider;
+
+Object.defineProperty(GLOBAL_NOTIFICATIONS_DEFINITION, nameof<GlobalNotificationsProvider>('named'),
 {
     get()
     {
@@ -175,9 +180,9 @@ export const LOCAL_NOTIFICATIONS_SCOPE_NAME = 'local';
 export const LOCAL_NOTIFICATIONS_SCOPE: InjectionToken<string> = new InjectionToken<string>('LOCAL_NOTIFICATIONS_SCOPE');
 
 /**
- * Local notifications provider
+ * Local notifications provider definitions
  */
-const LOCAL_NOTIFICATIONS: LocalNotificationsProvider =
+const LOCAL_NOTIFICATIONS_DEFINITION: Partial<LocalNotificationsProvider> =
 {
     provide: LocalNotificationsService,
     useFactory: (notifications: Notifications) =>
@@ -187,7 +192,12 @@ const LOCAL_NOTIFICATIONS: LocalNotificationsProvider =
     deps: [NOTIFICATIONS]
 };
 
-Object.defineProperty(LOCAL_NOTIFICATIONS, nameof<LocalNotificationsProvider>('named'),
+/**
+ * Local notifications provider
+ */
+const LOCAL_NOTIFICATIONS = LOCAL_NOTIFICATIONS_DEFINITION as LocalNotificationsProvider;
+
+Object.defineProperty(LOCAL_NOTIFICATIONS_DEFINITION, nameof<LocalNotificationsProvider>('named'),
 {
     get()
     {

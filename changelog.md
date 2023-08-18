@@ -1,14 +1,69 @@
 # Changelog
 
-## Version 10.0.0 (2023-06-19)
+## Version 10.0.0 (2023-08-18)
+
+### Features
+
+- updated `NotificationMessageComponent` component
+    - now implements latest version of `Notifications`
+    - now allows localizing message
+- updated `LocalNotificationsProviderDirective` directive
+    - new **properties**
+        - `name` name of scope, if not specified non scoped will be used
+    - new constructor `Attribute` parameter `withProvider` that represents name of scope, its optional
 
 ### BREAKING CHANGES
 
 - minimal supported version of `@angular` is `16.0.3`
 - minimal supported version of `@rxjs` is `7.5.7`
-- minimal supported version of `@jscrpt/common` is `3.4.0`
-- minimal supported version of `@anglr/common` is `16.0.0`
+- minimal supported version of `@jscrpt/common` is `4.0.0`
+- minimal supported version of `@anglr/common` is `17.0.0`
+- minimal supported version of `tslib` is `2.6.1`
 - dropped support of `NodeJs` lower than `16.14`
+- strict null checks
+- all generic defaults `any` changed to `unknown`
+- updated `TrimTextPipe` pipe
+    - second parameter `length` is no longer optional
+- updated `GlobalNotificationsProvider` interface
+    - `named` property is no longer optional
+- updated `LocalNotificationsProvider` interface
+    - `named` property is no longer optional
+- `GLOBAL_NOTIFICATIONS` is no longer part of public API, use `provideGlobalNotifications` instead
+- `LOCAL_NOTIFICATIONS` is no longer part of public API, use `provideLocalNotifications` instead
+- updated `NotificationsGlobalModule` module
+    - removed `forRoot` method, use `provideGlobalNotifications` instead
+- updated `NotificationsOptions` interface
+    - property `cssClasses` is no longer optional
+    - property `getNotificationMessageComponent` is no longer optional
+- updated `NotificationMessage` interface
+    - property `options` now has`Partial<TOptions>` setter
+- updated `NotificationsComponent` component
+    - renamed `_initSubscriptions` property to `initSubscriptions`
+    - renamed `_options` property to `ɵoptions`
+    - renamed `_service` property to `service`
+    - renamed `_changeDetector` property to `changeDetector`
+    - renamed `_platformId` property to `platformId`
+    - property `options` setter is now `Partial<NotificationsOptions>`
+- updated `NotificationMessageOptions` interface
+    - property `clickToClose` is no longer optional
+    - property `maxLength` is no longer optional
+    - property `cssClasses` is no longer optional
+- updated `NotificationMessageComponent` component
+    - renamed `_item` property to `ɵitem`
+    - renamed `_options` property to `ɵoptions`
+    - renamed `_changeDetector` property to `changeDetector`
+    - renamed `_init` property to `init`
+    - property `classObj` is now protected
+- updated `MessageRendererDirective` directive
+    - renamed `_closedEmit` method to `closedEmit`
+    - renamed `_viewContainerRef` property to `viewContainerRef`
+    - renamed `_componentRef` property to `componentRef`
+    - renamed `_closedSubscription` property to `closedSubscription`
+    - property `closedSubscription` is now nullable
+    - input `messageRenderer` is now required
+    - input `notificationsOptions` is now required
+- updated `MessageOptionsNotificationsDirective` directive
+    - input `messageOptions` is now required
 
 ## Version 9.0.0 (2022-06-30)
 

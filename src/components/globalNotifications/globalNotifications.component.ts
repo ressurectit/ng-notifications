@@ -39,6 +39,6 @@ export class GlobalNotificationsComponent extends NotificationsComponent
     {
         super(service, changeDetector, platformId, options);
 
-        this._options = extend(true, {}, defaultOptions, options);
+        this.ɵoptions = extend(true, {}, defaultOptions, options);
     }
 }

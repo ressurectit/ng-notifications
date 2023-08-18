@@ -1,7 +1,7 @@
 import {Component, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, Inject, Optional, HostBinding} from '@angular/core';
 import {Notification, NotificationSeverity} from '@anglr/common';
 import {slideInOutTrigger} from '@anglr/animations';
-import {extend} from '@jscrpt/common';
+import {Dictionary, extend} from '@jscrpt/common';
 
 import {NotificationMessage, NotificationMessageCss, NotificationMessageOptions, NOTIFICATION_MESSAGE_OPTIONS} from '../../common/notifications.interface';
 
@@ -39,20 +39,19 @@ export class NotificationMessageComponent implements NotificationMessage<Notific
     /**
      * Item holding notification information
      */
-    protected _item: Notification;
+    protected ɵitem: Notification|undefined|null;
 
     /**
      * Represents notification options instance
      */
-    protected _options: NotificationMessageOptions<NotificationMessageCss>;
+    protected ɵoptions: NotificationMessageOptions<NotificationMessageCss>;
 
-    //######################### public properties - template bidings #########################
+    //######################### protected properties - template bidings #########################
 
     /**
      * Object representing css class definition
-     * @internal
      */
-    public classObj: {[key: string]: boolean} = {};
+    protected classObj: Dictionary<boolean> = {};
 
     //######################### public properties - host #########################
 
@@ -70,12 +69,12 @@ export class NotificationMessageComponent implements NotificationMessage<Notific
      */
     public get item(): Notification
     {
-        return this._item;
+        return this.ɵitem ?? new Notification('', NotificationSeverity.Default);
     }
     public set item(item: Notification)
     {
-        this.classObj[`${this._options.cssClasses.messageTypePrefix}${NotificationSeverity[item.severity].toLowerCase()}`] = true;
-        this._item = item;
+        this.classObj[`${this.ɵoptions.cssClasses.messageTypePrefix}${NotificationSeverity[item.severity].toLowerCase()}`] = true;
+        this.ɵitem = item;
     }
 
     /**
@@ -83,12 +82,12 @@ export class NotificationMessageComponent implements NotificationMessage<Notific
      */
     public get options(): NotificationMessageOptions<NotificationMessageCss>
     {
-        return this._options;
+        return this.ɵoptions;
     }
-    public set options(options: NotificationMessageOptions<NotificationMessageCss>)
+    public set options(options: Partial<NotificationMessageOptions<NotificationMessageCss>>)
     {
-        this._options = extend(true, this._options, options);
-        this._init();
+        this.ɵoptions = extend(true, this.ɵoptions, options);
+        this.init();
     }
 
     /**
@@ -97,10 +96,10 @@ export class NotificationMessageComponent implements NotificationMessage<Notific
     public closed: EventEmitter<Notification> = new EventEmitter<Notification>();
 
     //######################### constructor #########################
-    constructor(protected _changeDetector: ChangeDetectorRef,
+    constructor(protected changeDetector: ChangeDetectorRef,
                 @Inject(NOTIFICATION_MESSAGE_OPTIONS) @Optional() options?: NotificationMessageOptions<NotificationMessageCss>)
     {
-        this._options = extend(true, {}, defaultOptions, options);
+        this.ɵoptions = extend(true, {}, defaultOptions, options);
     }
 
     //######################### public methods - template bidings #########################
@@ -111,9 +110,9 @@ export class NotificationMessageComponent implements NotificationMessage<Notific
      */
     public close(): void
     {
-        if(this.options.clickToClose)
+        if(this.options.clickToClose && this.ɵitem)
         {
-            this.closed.emit(this._item);
+            this.closed.emit(this.ɵitem);
         }
     }
 
@@ -124,7 +123,7 @@ export class NotificationMessageComponent implements NotificationMessage<Notific
      */
     public invalidateVisuals(): void
     {
-        this._changeDetector.detectChanges();
+        this.changeDetector.detectChanges();
     }
 
     //######################### protected methods #########################
@@ -132,8 +131,11 @@ export class NotificationMessageComponent implements NotificationMessage<Notific
     /**
      * Initialize component from provided options
      */
-    protected _init(): void
+    protected init(): void
     {
-        this.classObj[this.options.cssClasses.clickable] = this.options.clickToClose;
+        if(this.options.cssClasses.clickable)
+        {
+            this.classObj[this.options.cssClasses.clickable] = this.options.clickToClose;
+        }
     }
 }

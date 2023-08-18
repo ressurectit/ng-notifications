@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {CommonLocalizeModule} from '@anglr/common';
 
 import {TrimTextPipe} from '../pipes/trimText.pipe';
 import {NotificationMessageComponent} from '../components/notificationMessage/notificationMessage.component';
@@ -12,7 +13,8 @@ import {MessageRendererDirective} from '../directives/componentRenderer/messageR
 {
     imports:
     [
-        CommonModule
+        CommonModule,
+        CommonLocalizeModule,
     ],
     declarations:
     [

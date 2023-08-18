@@ -1,4 +1,4 @@
-<div [ngClass]="options?.cssClasses?.rootDiv">
+<div [ngClass]="options.cssClasses.rootDiv">
     <ng-container *ngFor="let itm of notifications">
         <ng-template [messageRenderer]="itm"
                      [notificationsOptions]="options"

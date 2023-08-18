@@ -12,13 +12,13 @@ export class TrimTextPipe implements PipeTransform
      * @param value - Text to be trimmed
      * @param length - Maximal allowed text length
      */
-    public transform(value: string, length?: number): string 
+    public transform(value: string, length: number): string 
     {
         if(isBlank(value) || isBlank(length) || value?.length < length)
         {
             return value;
         }
 
-        return value.substr(0, length) + ' ...';
+        return value.substring(0, length) + ' ...';
     }
 }

@@ -18,8 +18,8 @@ export class MessageOptionsNotificationsDirective implements OnChanges
     /**
      * Message options passed to message instance
      */
-    @Input()
-    public messageOptions: NotificationMessageOptions;
+    @Input({required: true})
+    public messageOptions!: NotificationMessageOptions;
 
     //######################### constructor #########################
     constructor(protected _notifications: NotificationsComponent)

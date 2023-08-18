@@ -37,12 +37,12 @@ export class NotificationsComponent implements OnInit, OnDestroy
     /**
      * Subscription all subscriptions created during initialization
      */
-    protected _initSubscriptions: Subscription = new Subscription();
+    protected initSubscriptions: Subscription = new Subscription();
 
     /**
      * Represents notification options instance
      */
-    protected _options: NotificationsOptions;
+    protected ɵoptions: NotificationsOptions;
 
     //######################### public properties - template bindings #########################
 
@@ -52,11 +52,11 @@ export class NotificationsComponent implements OnInit, OnDestroy
     @Input()
     public get options(): NotificationsOptions
     {
-        return this._options;
+        return this.ɵoptions;
     }
-    public set options(options: NotificationsOptions)
+    public set options(options: Partial<NotificationsOptions>)
     {
-        this._options = extend(true, this._options, options);
+        this.ɵoptions = extend(true, this.ɵoptions, options);
     }
 
     //######################### public properties - template bindings #########################
@@ -68,12 +68,12 @@ export class NotificationsComponent implements OnInit, OnDestroy
     public notifications: readonly Notification[] = [];
 
     //######################### constructor #########################
-    constructor(protected _service: LocalNotificationsService,
-                protected _changeDetector: ChangeDetectorRef,
-                @Inject(PLATFORM_ID) protected _platformId: Object,
+    constructor(protected service: LocalNotificationsService,
+                protected changeDetector: ChangeDetectorRef,
+                @Inject(PLATFORM_ID) protected platformId: Object,
                 @Inject(NOTIFICATIONS_OPTIONS) @Optional() options?: NotificationsOptions)
     {
-        this._options = extend(true, {}, defaultOptions, options);
+        this.ɵoptions = extend(true, {}, defaultOptions, options);
     }
 
     //######################### public methods - implementation of OnInit #########################
@@ -83,18 +83,18 @@ export class NotificationsComponent implements OnInit, OnDestroy
      */
     public ngOnInit(): void
     {
-        if(!isPlatformBrowser(this._platformId))
+        if(!isPlatformBrowser(this.platformId))
         {
             return;
         }
 
-        this.notifications = this._service.notifications;
+        this.notifications = this.service.notifications;
 
-        this._initSubscriptions.add(this._service.notificationsChange.subscribe(() =>
+        this.initSubscriptions.add(this.service.notificationsChange.subscribe(() =>
         {
-            this.notifications = this._service.notifications;
+            this.notifications = this.service.notifications;
 
-            this._changeDetector.detectChanges();
+            this.changeDetector.detectChanges();
         }));
     }
 
@@ -105,8 +105,7 @@ export class NotificationsComponent implements OnInit, OnDestroy
      */
     public ngOnDestroy(): void
     {
-        this._initSubscriptions?.unsubscribe();
-        this._initSubscriptions = null;
+        this.initSubscriptions.unsubscribe();
     }
 
     //######################### public methods #########################
@@ -119,6 +118,6 @@ export class NotificationsComponent implements OnInit, OnDestroy
      */
     public removeItem(item: Notification): void
     {
-        this._service.remove(item);
+        this.service.remove(item);
     }
 }

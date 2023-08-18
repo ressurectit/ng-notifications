@@ -1,7 +1,7 @@
 import {Attribute, Directive, FactoryProvider, inject} from '@angular/core';
-import {generateId} from '@jscrpt/common';
+import {NOTIFICATIONS} from '@anglr/common';
 
-import {LOCAL_NOTIFICATIONS, LocalNotificationsService} from '../../common/notifications.service';
+import {LOCAL_NOTIFICATIONS_SCOPE_NAME, LocalNotificationsService} from '../../common/notifications.service';
 
 /**
  * Directive used for providing local notifications service to local notifications
@@ -17,13 +17,14 @@ import {LOCAL_NOTIFICATIONS, LocalNotificationsService} from '../../common/notif
             useFactory: () =>
             {
                 const self = inject(LocalNotificationsProviderDirective, {self: true});
+                const notifications = inject(NOTIFICATIONS);
                 
                 if(self.name)
                 {
-                    return LOCAL_NOTIFICATIONS.named(self.name);
+                    return notifications.getScope(`${LOCAL_NOTIFICATIONS_SCOPE_NAME}-${self.name}`);
                 }
 
-                return LOCAL_NOTIFICATIONS.named(generateId(6));
+                return notifications.getScope(LOCAL_NOTIFICATIONS_SCOPE_NAME);
             },
         },
     ]

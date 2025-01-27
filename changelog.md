@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 11.0.0 (2024-01-27)
+## Version 11.0.0 (2025-01-27)
 
 ### Features
 

@@ -1,12 +1,13 @@
 import {Component, OnDestroy, Input, Optional, PLATFORM_ID, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnInit} from '@angular/core';
-import {isPlatformBrowser} from '@angular/common';
+import {isPlatformBrowser, NgClass} from '@angular/common';
 import {Notification} from '@anglr/common';
-import {extend} from '@jscrpt/common';
+import {extend} from '@jscrpt/common/extend';
 import {Subscription} from 'rxjs';
 
 import {NotificationsOptions, NOTIFICATIONS_OPTIONS} from '../../common/notifications.interface';
 import {LocalNotificationsService} from '../../common/notifications.service';
 import {NotificationMessageComponent} from '../notificationMessage/notificationMessage.component';
+import {MessageRendererDirective} from '../../directives';
 
 /**
  * Default options for notifications component
@@ -16,7 +17,7 @@ const defaultOptions: NotificationsOptions =
 {
     cssClasses:
     {
-        rootDiv: 'notifications'
+        rootDiv: 'notifications',
     },
     getNotificationMessageComponent: () => NotificationMessageComponent
 };
@@ -28,6 +29,11 @@ const defaultOptions: NotificationsOptions =
 {
     selector: 'notifications',
     templateUrl: 'notifications.component.html',
+    imports:
+    [
+        NgClass,
+        MessageRendererDirective,
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotificationsComponent implements OnInit, OnDestroy
@@ -70,14 +76,14 @@ export class NotificationsComponent implements OnInit, OnDestroy
     //######################### constructor #########################
     constructor(protected service: LocalNotificationsService,
                 protected changeDetector: ChangeDetectorRef,
-                @Inject(PLATFORM_ID) protected platformId: Object,
+                @Inject(PLATFORM_ID) protected platformId: object,
                 @Inject(NOTIFICATIONS_OPTIONS) @Optional() options?: NotificationsOptions)
     {
         this.ɵoptions = extend(true, {}, defaultOptions, options);
     }
 
     //######################### public methods - implementation of OnInit #########################
-    
+
     /**
      * Initialize component
      */
@@ -113,7 +119,7 @@ export class NotificationsComponent implements OnInit, OnDestroy
     /**
      * Removes notification item from list
      * @param item - Item to be removed
-     * 
+     *
      * @internal
      */
     public removeItem(item: Notification): void

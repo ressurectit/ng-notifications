@@ -1,7 +1,9 @@
 import {Component, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, Inject, Optional, HostBinding} from '@angular/core';
-import {Notification, NotificationSeverity} from '@anglr/common';
+import {NgClass} from '@angular/common';
+import {LocalizePipe, Notification, NotificationSeverity, TrimTextPipe} from '@anglr/common';
 import {slideInOutTrigger} from '@anglr/animations';
-import {Dictionary, extend} from '@jscrpt/common';
+import {Dictionary} from '@jscrpt/common';
+import {extend} from '@jscrpt/common/extend';
 
 import {NotificationMessage, NotificationMessageCss, NotificationMessageOptions, NOTIFICATION_MESSAGE_OPTIONS} from '../../common/notifications.interface';
 
@@ -17,8 +19,8 @@ const defaultOptions: NotificationMessageOptions<NotificationMessageCss> =
     {
         clickable: 'clickable',
         messageDiv: 'alert',
-        messageTypePrefix: 'alert-'
-    }
+        messageTypePrefix: 'alert-',
+    },
 };
 
 /**
@@ -27,9 +29,18 @@ const defaultOptions: NotificationMessageOptions<NotificationMessageCss> =
 @Component(
  {
     selector: 'notification',
-    styleUrls: ['notificationMessage.component.css'],
+    styleUrl: 'notificationMessage.component.css',
     templateUrl: 'notificationMessage.component.html',
-    animations: [slideInOutTrigger],
+    imports:
+    [
+        NgClass,
+        LocalizePipe,
+        TrimTextPipe,
+    ],
+    animations:
+    [
+        slideInOutTrigger,
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotificationMessageComponent implements NotificationMessage<NotificationMessageCss, NotificationMessageOptions<NotificationMessageCss>>

@@ -11,7 +11,7 @@ import {NotificationMessage, NotificationsOptions, NOTIFICATION_MESSAGE_SERVICE,
 @Directive(
 {
     selector: '[messageRenderer]',
-    exportAs: 'messageRenderer'
+    exportAs: 'messageRenderer',
 })
 export class MessageRendererDirective implements OnChanges, OnDestroy
 {
@@ -93,7 +93,7 @@ export class MessageRendererDirective implements OnChanges, OnDestroy
                 notificationMessageType = this.notificationsOptions.getNotificationMessageComponent(this.notification.severity);
             }
 
-            this.componentRef = this.viewContainerRef.createComponent(notificationMessageType, 
+            this.componentRef = this.viewContainerRef.createComponent(notificationMessageType,
                                                                       {
                                                                           injector,
                                                                       });
@@ -112,7 +112,7 @@ export class MessageRendererDirective implements OnChanges, OnDestroy
     }
 
     //######################### public methods - implementation of OnDestroy #########################
-    
+
     /**
      * Called when component is destroyed
      */
@@ -131,5 +131,5 @@ export class MessageRendererDirective implements OnChanges, OnDestroy
     protected closedEmit = (notification: Notification): void =>
     {
         this.closed.emit(notification);
-    }
+    };
 }

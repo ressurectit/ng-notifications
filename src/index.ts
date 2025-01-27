@@ -1,13 +1,6 @@
 export * from './common/notifications.interface';
 export {GlobalNotificationsService, LocalNotificationsService} from './common/notifications.service';
-export * from './components/globalNotifications/globalNotifications.component';
-export * from './components/notificationMessage/notificationMessage.component';
-export * from './components/notifications/notifications.component';
-export * from './directives/componentRenderer/messageRenderer.directive';
-export * from './directives/localNotificationsWithProvider/localNotificationsWithProvider.directive';
-export * from './directives/messageOptionsNotifications/messageOptionsNotifications.directive';
+export * from './components';
+export * from './directives';
 export * from './misc/providers';
-export * from './modules/notificationsGlobal.module';
-export * from './modules/notificationsLocal.module';
-export * from './modules/notificationsCore.module';
-export * from './pipes/trimText.pipe';
+export * from './modules';

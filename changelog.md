@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 11.0.0 (2024-01-27)
+
+### Features
+
+- all components, directives, pipes are now `standalone`
+
+### BREAKING CHANGES
+
+- minimal supported version of `NodeJs` is `18`
+- minimal supported version of `@angular` is `19.1.0`
+- minimal supported version of `@jscrpt/common` is `7.0.0`
+- minimal supported version of `@anglr/animations` is `10.0.0`
+- minimal supported version of `@anglr/common` is `22.0.0`
+- minimal supported version of `tslib` is `2.8.1`
+- removed `TrimTextPipe` pipe, now using `TrimTextPipe` from `@anglr/common`
+
 ## Version 10.0.0 (2023-08-18)
 
 ### Features

@@ -1,10 +1,12 @@
 import {Component, Optional, PLATFORM_ID, ChangeDetectorRef, Inject, ChangeDetectionStrategy} from '@angular/core';
-import {extend} from '@jscrpt/common';
+import {NgClass} from '@angular/common';
+import {extend} from '@jscrpt/common/extend';
 
 import {NotificationsOptions, NOTIFICATIONS_OPTIONS} from '../../common/notifications.interface';
 import {GlobalNotificationsService} from '../../common/notifications.service';
 import {NotificationsComponent} from '../notifications/notifications.component';
 import {NotificationMessageComponent} from '../notificationMessage/notificationMessage.component';
+import {MessageRendererDirective} from '../../directives';
 
 /**
  * Default options for notifications component
@@ -14,9 +16,9 @@ const defaultOptions: NotificationsOptions =
 {
     cssClasses:
     {
-        rootDiv: 'notifications global'
+        rootDiv: 'notifications global',
     },
-    getNotificationMessageComponent: () => NotificationMessageComponent
+    getNotificationMessageComponent: () => NotificationMessageComponent,
 };
 
 /**
@@ -25,8 +27,13 @@ const defaultOptions: NotificationsOptions =
 @Component(
 {
     selector: 'global-notifications',
-    styleUrls: ['globalNotifications.component.css'],
+    styleUrl: 'globalNotifications.component.css',
     templateUrl: 'globalNotifications.component.html',
+    imports:
+    [
+        NgClass,
+        MessageRendererDirective,
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GlobalNotificationsComponent extends NotificationsComponent
@@ -34,7 +41,7 @@ export class GlobalNotificationsComponent extends NotificationsComponent
     //######################### constructor #########################
     constructor(service: GlobalNotificationsService,
                 changeDetector: ChangeDetectorRef,
-                @Inject(PLATFORM_ID) platformId: Object,
+                @Inject(PLATFORM_ID) platformId: object,
                 @Inject(NOTIFICATIONS_OPTIONS) @Optional() options?: NotificationsOptions)
     {
         super(service, changeDetector, platformId, options);

@@ -38,7 +38,7 @@ abstract class ɵNotificationsService implements Notifications
     }
 
     //######################### methods #########################
-    
+
     /**
      * @inheritdoc
      */
@@ -62,7 +62,7 @@ abstract class ɵNotificationsService implements Notifications
     {
         throw new Error('Method not implemented.');
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -70,7 +70,7 @@ abstract class ɵNotificationsService implements Notifications
     {
         throw new Error('Method not implemented.');
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -78,7 +78,7 @@ abstract class ɵNotificationsService implements Notifications
     {
         throw new Error('Method not implemented.');
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -143,7 +143,7 @@ export abstract class LocalNotificationsService extends ɵNotificationsService i
 const GLOBAL_NOTIFICATIONS_DEFINITION: Partial<GlobalNotificationsProvider> =
 {
     provide: GlobalNotificationsService,
-    useExisting: NOTIFICATIONS
+    useExisting: NOTIFICATIONS,
 };
 
 /**
@@ -163,7 +163,7 @@ Object.defineProperty(GLOBAL_NOTIFICATIONS_DEFINITION, nameof<GlobalNotification
                 {
                     return notifications.getScope(name);
                 },
-                deps: [NOTIFICATIONS]
+                deps: [NOTIFICATIONS],
             };
         };
     }
@@ -189,7 +189,7 @@ const LOCAL_NOTIFICATIONS_DEFINITION: Partial<LocalNotificationsProvider> =
     {
         return notifications.getScope(LOCAL_NOTIFICATIONS_SCOPE_NAME);
     },
-    deps: [NOTIFICATIONS]
+    deps: [NOTIFICATIONS],
 };
 
 /**
@@ -212,11 +212,11 @@ Object.defineProperty(LOCAL_NOTIFICATIONS_DEFINITION, nameof<LocalNotificationsP
                     {
                         return notifications.getScope(scopeName);
                     },
-                    deps: [NOTIFICATIONS]
+                    deps: [NOTIFICATIONS],
                 },
                 {
                     provide: LOCAL_NOTIFICATIONS_SCOPE,
-                    useValue: scopeName
+                    useValue: scopeName,
                 }
             ];
         };

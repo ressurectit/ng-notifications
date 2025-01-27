@@ -18,7 +18,7 @@ import {LOCAL_NOTIFICATIONS_SCOPE_NAME, LocalNotificationsService} from '../../c
             {
                 const self = inject(LocalNotificationsProviderDirective, {self: true});
                 const notifications = inject(NOTIFICATIONS);
-                
+
                 if(self.name)
                 {
                     return notifications.getScope(`${LOCAL_NOTIFICATIONS_SCOPE_NAME}-${self.name}`);
@@ -27,7 +27,7 @@ import {LOCAL_NOTIFICATIONS_SCOPE_NAME, LocalNotificationsService} from '../../c
                 return notifications.getScope(LOCAL_NOTIFICATIONS_SCOPE_NAME);
             },
         },
-    ]
+    ],
 })
 export class LocalNotificationsProviderDirective
 {

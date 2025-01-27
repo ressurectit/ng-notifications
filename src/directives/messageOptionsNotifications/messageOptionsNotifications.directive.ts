@@ -1,7 +1,7 @@
 import {Directive, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {nameof} from '@jscrpt/common';
 
-import {NotificationsComponent} from '../../components/notifications/notifications.component';
+import {NotificationsComponent} from '../../components';
 import {NotificationMessageOptions} from '../../common/notifications.interface';
 
 /**
@@ -9,7 +9,7 @@ import {NotificationMessageOptions} from '../../common/notifications.interface';
  */
 @Directive(
 {
-    selector: 'notifications[messageOptions]'
+    selector: 'notifications[messageOptions]',
 })
 export class MessageOptionsNotificationsDirective implements OnChanges
 {
@@ -25,9 +25,9 @@ export class MessageOptionsNotificationsDirective implements OnChanges
     constructor(protected _notifications: NotificationsComponent)
     {
     }
-    
+
     //######################### public methods - implementation of OnChanges #########################
-    
+
     /**
      * Called when input value changes
      */
@@ -37,7 +37,7 @@ export class MessageOptionsNotificationsDirective implements OnChanges
         {
             this._notifications.options =
             {
-                messageOptions: this.messageOptions
+                messageOptions: this.messageOptions,
             };
         }
     }

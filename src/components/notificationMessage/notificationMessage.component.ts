@@ -1,7 +1,6 @@
-import {Component, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, Inject, Optional, HostBinding} from '@angular/core';
+import {Component, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, Inject, Optional} from '@angular/core';
 import {NgClass} from '@angular/common';
 import {LocalizePipe, Notification, NotificationSeverity, TrimTextPipe} from '@anglr/common';
-import {slideInOutTrigger} from '@anglr/animations';
 import {Dictionary} from '@jscrpt/common';
 import {extend} from '@jscrpt/common/extend';
 
@@ -27,19 +26,20 @@ const defaultOptions: NotificationMessageOptions<NotificationMessageCss> =
  * Notification message component that represents simple message
  */
 @Component(
- {
+{
     selector: 'notification',
     styleUrl: 'notificationMessage.component.css',
     templateUrl: 'notificationMessage.component.html',
+    host:
+    {
+        'animate.enter': 'slide-in',
+        'animate.leave': 'slide-out',
+    },
     imports:
     [
         NgClass,
         LocalizePipe,
         TrimTextPipe,
-    ],
-    animations:
-    [
-        slideInOutTrigger,
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -63,15 +63,6 @@ export class NotificationMessageComponent implements NotificationMessage<Notific
      * Object representing css class definition
      */
     protected classObj: Dictionary<boolean> = {};
-
-    //######################### public properties - host #########################
-
-    /**
-     * Attach animation directly to component (enter, exit)
-     * @internal
-     */
-    @HostBinding('@slideInOut')
-    public animatedMessage = true;
 
     //######################### public properties #########################
 

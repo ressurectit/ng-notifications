@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 12.0.0 (2025-09-29)
+
+### Features
+
+- existing animations refactored to css animations
+
+### BREAKING CHANGES
+
+- new optional dependency `@css-styles/themes` containing css animations
+- minimal supported version of `@angular` packages is `20.3.2`
+- removed dependency on deprecated `@angular/animations`
+
 ## Version 11.0.0 (2025-01-27)
 
 ### Features

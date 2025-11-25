@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 12.0.1 (2025-11-25)
+
+### Bug Fixes
+
+- fixed `NotificationMessageComponent` component, now using `slide-in-animation`, `slide-out-animation` instead of `slide-in`, `slide-out`
+
 ## Version 12.0.0 (2025-09-29)
 
 ### Features

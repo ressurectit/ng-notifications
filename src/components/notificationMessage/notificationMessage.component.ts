@@ -1,5 +1,4 @@
 import {Component, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, Inject, Optional} from '@angular/core';
-import {NgClass} from '@angular/common';
 import {LocalizePipe, Notification, NotificationSeverity, TrimTextPipe} from '@anglr/common';
 import {Dictionary} from '@jscrpt/common';
 import {extend} from '@jscrpt/common/extend';
@@ -32,12 +31,11 @@ const defaultOptions: NotificationMessageOptions<NotificationMessageCss> =
     templateUrl: 'notificationMessage.component.html',
     host:
     {
-        'animate.enter': 'slide-in',
-        'animate.leave': 'slide-out',
+        'animate.enter': 'slide-in-animation',
+        'animate.leave': 'slide-out-animation',
     },
     imports:
     [
-        NgClass,
         LocalizePipe,
         TrimTextPipe,
     ],

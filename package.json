@@ -62,7 +62,7 @@
         "@angular/common": "20.3.2",
         "@angular/compiler": "20.3.2",
         "@angular/compiler-cli": "20.3.2",
-        "@angular/core": "20.3.2",
+        "@angular/core": "20.3.16",
         "@angular/language-service": "20.3.2",
         "@jscrpt/common": "7.0.0",
         "@microsoft/api-documenter": "7.26.27",

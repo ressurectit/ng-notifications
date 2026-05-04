@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 12.0.2 (2026-04-05)
+
+### Bug Fixes
+
+- fixed `NotificationMessageComponent` component
+    - now should correctly set all css classes to its main element
+
 ## Version 12.0.1 (2025-11-25)
 
 ### Bug Fixes

@@ -137,5 +137,10 @@ export class NotificationMessageComponent implements NotificationMessage<Notific
         {
             this.classObj[this.options.cssClasses.clickable] = this.options.clickToClose;
         }
+
+        if(this.options.cssClasses.messageDiv)
+        {
+            this.classObj[this.options.cssClasses.messageDiv] = true;
+        }
     }
 }
